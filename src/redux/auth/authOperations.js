@@ -18,9 +18,9 @@ export const register = createAsyncThunk(
     try {
       const { data } = await axios.post('/users/register', credentials);
       // const { data } = await axios.post('/users/signup', credentials);
-      setAuthHeader(data.token);
+      setAuthHeader(data.data.token);
 
-      return data;
+      return data.data;
     } catch (err) {
       if (err.response.status === 400) {
         return rejectWithValue(
@@ -39,7 +39,7 @@ export const logIn = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/login', credentials);
-      setAuthHeader(data.token);
+      setAuthHeader(data.data.token);
 
       console.log('data', data);
       return data.data;
@@ -60,6 +60,10 @@ export const logOut = createAsyncThunk(
   'auth/logOut',
   async (_, { rejectWithValue }) => {
     try {
+      console.log(
+        'axios.defaults.headers.common.Authorization',
+        axios.defaults.headers.common.Authorization
+      );
       await axios.get('/users/logout');
       clearAuthHeader();
 
@@ -82,6 +86,8 @@ export const refreshUser = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     const persitedToken = getState().auth.token;
 
+    console.log('persitedToken', persitedToken);
+
     if (persitedToken === null) {
       return rejectWithValue('Unable to fetch user');
     }
@@ -90,7 +96,7 @@ export const refreshUser = createAsyncThunk(
       setAuthHeader(persitedToken);
       const { data } = await axios.get('/users/current');
 
-      return data;
+      return data.data;
     } catch (err) {
       return rejectWithValue(err.message);
     }

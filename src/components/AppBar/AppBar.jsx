@@ -8,7 +8,7 @@ export const AppBar = () => {
   const { isLoggedIn } = useAuth();
   return (
     <Box component={'header'}>
-      <AppBarContainer position="static">
+      <AppBarContainer position="static" sx={{ backgroundColor: 'black' }}>
         <Container maxWidth="xl">
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Navigation />

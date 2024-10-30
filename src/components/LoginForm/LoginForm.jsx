@@ -59,7 +59,7 @@ export const LoginForm = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'black' }}>
             <LoginIcon />
           </Avatar>
           <Typography component="h2" variant="h5">
@@ -100,7 +100,7 @@ export const LoginForm = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
             >
               Log in
             </Button>

@@ -2,18 +2,18 @@ import { Box, Button, Toolbar, Typography } from '@mui/material';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks';
 
-import { ContactPhone } from '@mui/icons-material';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 export const Navigation = () => {
   const { isLoggedIn } = useAuth();
 
   return (
     <Box component={'nav'}>
-      <Toolbar sx={{}}>
+      <Toolbar sx={{ backgroundColor: 'orangered' }}>
         <Button component={RouterNavLink} variant="outline" to="/">
-          <ContactPhone sx={{ mr: 2 }} />
+          <CurrencyExchangeIcon sx={{ mr: 2 }} />
           <Typography variant="h6" component="p" sx={{ textTransform: 'none' }}>
-            Phonebook
+            Trade Tracker
           </Typography>
         </Button>
 
@@ -24,7 +24,7 @@ export const Navigation = () => {
               component="p"
               sx={{ textTransform: 'none' }}
             >
-              Contacts
+              Dashboard
             </Typography>
           </Button>
         )}

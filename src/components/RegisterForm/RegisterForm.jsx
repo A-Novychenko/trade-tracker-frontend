@@ -68,7 +68,7 @@ export const RegisterForm = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'black' }}>
             <HowToRegIcon />
           </Avatar>
           <Typography component="h2" variant="h5">
@@ -112,14 +112,14 @@ export const RegisterForm = () => {
               id="password"
               onChange={handleChangePassword}
               error={isErrorPass}
-              helperText={'Password must be more than 7 characters'}
+              helperText={'Password must be more than 8 characters'}
             />
 
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
             >
               Register
             </Button>

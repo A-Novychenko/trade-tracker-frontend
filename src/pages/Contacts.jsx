@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 import { Button, Typography } from '@mui/material';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
-import { ContactForm } from 'components/ContactForm';
+// import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
-import { Filter } from 'components/Filter';
+// import { Filter } from 'components/Filter';
 import { TransitionsModal } from 'components/Modal/Modal';
+
+import PaymentIcon from '@mui/icons-material/Payment';
 
 export default function Contacts({ handleIsSuchСontact }) {
   const [open, setOpen] = useState(false);
@@ -18,20 +19,21 @@ export default function Contacts({ handleIsSuchСontact }) {
       <Button
         onClick={handleOpen}
         variant="contained"
-        sx={{ display: 'flex', mx: 'auto', my: 4 }}
+        sx={{ display: 'flex', mr: 'auto', my: 4, bgcolor: 'orangered' }}
       >
-        <PersonAddAltIcon fontSize="large" />
-        <Typography ml={2}> add contact</Typography>
+        <PaymentIcon fontSize="large" />
+        <Typography ml={2}> Make a payment</Typography>
       </Button>
-      <Filter />
-      <ContactList handleIsSuchСontact={handleIsSuchСontact} />
+      {/* <Filter /> */}
+      {/* <ContactList handleIsSuchСontact={handleIsSuchСontact} /> */}
 
       {open && (
         <TransitionsModal handleClose={handleClose} open={open}>
-          <ContactForm
+          {/* <ContactForm
             onToggleModal={handleClose}
             handleIsSuchСontact={handleIsSuchСontact}
-          />
+          /> */}
+          <p>Payment Form</p>
         </TransitionsModal>
       )}
     </div>
