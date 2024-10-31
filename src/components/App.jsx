@@ -14,10 +14,11 @@ import { SnackError, SnackSuccess, SnackWarning } from './SnackBar';
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
+const VerifyEmail = lazy(() => import('../pages/VerifyEmail'));
 const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 export const App = () => {
-  const { isRefreshing, error, isLoggedIn } = useAuth();
+  const { isRefreshing, error, isLoggedIn, isLoading } = useAuth();
   const { completed, errorContacts } = useContacts();
   const [isSuchСontact, setIsSuchСontact] = useState(false);
   const [showSnackErr, setShowSnackErr] = useState(false);
@@ -58,7 +59,7 @@ export const App = () => {
     setIsSuchСontact(text);
   };
 
-  return isRefreshing ? (
+  return isRefreshing || isLoading ? (
     <Loader />
   ) : (
     <>
@@ -81,6 +82,16 @@ export const App = () => {
               <RestrictedRoute
                 redirectTo="/contacts"
                 component={<LoginPage />}
+              />
+            }
+          />
+
+          <Route
+            path="/verify"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<VerifyEmail />}
               />
             }
           />

@@ -11,12 +11,19 @@ import {
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { register } from '../../redux/auth/authOperations';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// import { useAuth } from '../../hooks';
 
 export const RegisterForm = () => {
   const [isErrorName, setIsErrorName] = useState(null);
   const [isErrorMail, setIsErrorMail] = useState(null);
   const [isErrorPass, setIsErrorPass] = useState(null);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  // const { verify } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -29,6 +36,8 @@ export const RegisterForm = () => {
     };
     dispatch(register(data));
     e.target.reset();
+
+    navigate('/verify');
   };
 
   const handleChangeName = e => {

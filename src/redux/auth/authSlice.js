@@ -4,24 +4,38 @@ import { logIn, register, logOut, refreshUser } from './authOperations';
 const extraActions = [register, logIn, logOut, refreshUser];
 
 const initialState = {
+  isLoading: false,
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
+  verify: false,
 };
 
 const authSlice = createSlice({
   name: 'contacts',
   initialState,
 
+  reducers: {
+    setVerify(state, action) {
+      state.verify = action.payload;
+    },
+  },
+
   extraReducers: builder =>
     builder
+      .addCase(register.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, { payload: { verify } }) => {
+        // .addCase(register.fulfilled, (state, { payload: { user, token } }) => {
+        // state.user = user;
+        // state.token = token;
+        // state.isLoggedIn = true;
 
-      .addCase(register.fulfilled, (state, { payload: { user, token } }) => {
-        state.user = user;
-        state.token = token;
-        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.verify = verify;
         state.error = null;
       })
 
@@ -33,10 +47,10 @@ const authSlice = createSlice({
       })
 
       .addCase(logOut.fulfilled, () => initialState)
+
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
-
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.user = payload.user;
         state.token = payload.token;
@@ -61,3 +75,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { setVerify } = authSlice.actions;

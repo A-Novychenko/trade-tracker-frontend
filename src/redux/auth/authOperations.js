@@ -20,7 +20,8 @@ export const register = createAsyncThunk(
       // const { data } = await axios.post('/users/signup', credentials);
       setAuthHeader(data.data.token);
 
-      return data.data;
+      // return data.data;
+      return { verify: 'pending' };
     } catch (err) {
       if (err.response.status === 400) {
         return rejectWithValue(
