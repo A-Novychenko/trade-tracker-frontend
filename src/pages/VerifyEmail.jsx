@@ -1,12 +1,14 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import { Container } from '@mui/material';
-import { useAuth } from '../hooks';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useSearchParams } from 'react-router-dom';
+import { Button, Container } from '@mui/material';
+
+import { useAuth } from '../hooks';
 import { setVerify } from '../redux/auth/authSlice';
+import { resendVerify } from '../redux/auth/authOperations';
 
 export default function VerifyEmail() {
-  const { verify } = useAuth();
+  const { verify, user } = useAuth();
 
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -18,12 +20,12 @@ export default function VerifyEmail() {
       dispatch(setVerify(success));
     }
   }, [dispatch, success]);
-  // const { success } = useParams();
 
-  console.log('verify', verify);
-  // const location = useLocation();
-  // const queryParams = new URLSearchParams(location.search);
-  // const myParam = queryParams.get('myParam');
+  const handleResendEmail = () => {
+    if (user.email) {
+      dispatch(resendVerify({ email: user.email }));
+    }
+  };
 
   return (
     <>
@@ -50,7 +52,15 @@ export default function VerifyEmail() {
             spam folder or click the button below to resend the email.
           </p>
 
-          <Link to="/login">[Resend Email]</Link>
+          <Button
+            type="button"
+            onClick={handleResendEmail}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
+          >
+            Resend Email
+          </Button>
         </Container>
       )}
 
@@ -70,7 +80,15 @@ export default function VerifyEmail() {
 
           <p style={{ fontSize: '40px', color: 'red' }}>Error</p>
 
-          <Link to="/register">Register</Link>
+          <Button
+            type="button"
+            onClick={handleResendEmail}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
+          >
+            Resend Email
+          </Button>
         </Container>
       )}
     </>

@@ -1,12 +1,25 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { logIn, register, logOut, refreshUser } from './authOperations';
+import {
+  logIn,
+  resendVerify,
+  register,
+  logOut,
+  refreshUser,
+  resetPassword,
+} from './authOperations';
 
-const extraActions = [register, logIn, logOut, refreshUser];
+const extraActions = [
+  register,
+  resendVerify,
+  logIn,
+  logOut,
+  refreshUser,
+  resetPassword,
+];
 
 const initialState = {
   isLoading: false,
   user: { name: null, email: null },
-  token: null,
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
@@ -18,6 +31,10 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
+    setLoggedOut() {
+      return initialState;
+    },
+
     setVerify(state, action) {
       state.verify = action.payload;
     },
@@ -28,20 +45,32 @@ const authSlice = createSlice({
       .addCase(register.pending, state => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, { payload: { verify } }) => {
-        // .addCase(register.fulfilled, (state, { payload: { user, token } }) => {
-        // state.user = user;
-        // state.token = token;
-        // state.isLoggedIn = true;
 
+      .addCase(register.fulfilled, (state, { payload: { user, verify } }) => {
+        state.user = user;
         state.isLoading = false;
         state.verify = verify;
         state.error = null;
       })
 
-      .addCase(logIn.fulfilled, (state, { payload: { user, token } }) => {
+      .addCase(resendVerify.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(resendVerify.fulfilled, state => {
+        state.isLoading = false;
+        state.error = null;
+      })
+
+      .addCase(resetPassword.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(resetPassword.fulfilled, state => {
+        state.isLoading = false;
+        state.error = null;
+      })
+
+      .addCase(logIn.fulfilled, (state, { payload: { user } }) => {
         state.user = user;
-        state.token = token;
         state.isLoggedIn = true;
         state.error = null;
       })
@@ -53,12 +82,12 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.token = payload.token;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.error = null;
       })
       .addCase(refreshUser.rejected, () => initialState)
+
       .addMatcher(
         isAnyOf(...extraActions.map(action => action.pending)),
         state => {
@@ -75,4 +104,5 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { setLoggedOut } = authSlice.actions;
 export const { setVerify } = authSlice.actions;

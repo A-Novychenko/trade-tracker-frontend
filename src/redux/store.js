@@ -15,6 +15,8 @@ import { filterReducer } from './contacts/filterSlice';
 import { contactsReducer } from './contacts/contactsSlice';
 import { authReducer } from './auth/authSlice';
 
+const isDev = import.meta.env.VITE_NODE_ENV === 'development';
+
 const authPersistConfig = {
   key: 'auth',
   storage,
@@ -33,7 +35,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV === 'development',
+  devTools: isDev,
 });
 
 export const persistor = persistStore(store);

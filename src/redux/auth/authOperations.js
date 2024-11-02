@@ -1,27 +1,65 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:3007/api';
+import { setLoggedOut } from './authSlice';
+import { store } from '../store';
 
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+import { serverAPI } from '../../utils/serverAPI';
 
-const clearAuthHeader = () => {
-  axios.defaults.headers.common.Authorization = '';
-};
+serverAPI.interceptors.response.use(
+  // res => res,
+  res => {
+    console.log('test-interceptors valid token');
+    return res;
+  },
+  async e => {
+    console.log('start not-valid');
+    if (e.response.status === 401) {
+      try {
+        console.log('401 before');
+        await serverAPI.post('/users/refresh');
+        console.log('401 after');
+
+        return serverAPI(e.config);
+      } catch (refreshError) {
+        if (refreshError.response && refreshError.response.status === 403) {
+          console.log('403 and logout');
+          store.dispatch(setLoggedOut());
+        }
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(e);
+  }
+);
 
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/users/register', credentials);
-      // const { data } = await axios.post('/users/signup', credentials);
-      setAuthHeader(data.data.token);
+      const { data } = await serverAPI.post('/users/register', credentials);
 
-      // return data.data;
-      return { verify: 'pending' };
+      return data.data;
+    } catch (err) {
+      if (err.response.status === 400) {
+        return rejectWithValue(
+          `Error creating user!  Try a different name or email`
+        );
+      }
+      return rejectWithValue(
+        `Oops! What's broken, please try again later. Error: " ${err.message} " `
+      );
+    }
+  }
+);
+
+export const resendVerify = createAsyncThunk(
+  'auth/resendVerify',
+  async (email, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.post('/users/verify', email);
+
+      return data.data;
     } catch (err) {
       if (err.response.status === 400) {
         return rejectWithValue(
@@ -39,8 +77,7 @@ export const logIn = createAsyncThunk(
   'auth/logIn',
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/users/login', credentials);
-      setAuthHeader(data.data.token);
+      const { data } = await serverAPI.post('/users/login', credentials);
 
       console.log('data', data);
       return data.data;
@@ -61,12 +98,7 @@ export const logOut = createAsyncThunk(
   'auth/logOut',
   async (_, { rejectWithValue }) => {
     try {
-      console.log(
-        'axios.defaults.headers.common.Authorization',
-        axios.defaults.headers.common.Authorization
-      );
-      await axios.get('/users/logout');
-      clearAuthHeader();
+      await serverAPI.get('/users/logout');
 
       return;
     } catch (err) {
@@ -84,18 +116,22 @@ export const logOut = createAsyncThunk(
 
 export const refreshUser = createAsyncThunk(
   'auth/refreshUser',
-  async (_, { getState, rejectWithValue }) => {
-    const persitedToken = getState().auth.token;
-
-    console.log('persitedToken', persitedToken);
-
-    if (persitedToken === null) {
-      return rejectWithValue('Unable to fetch user');
-    }
-
+  async (_, { rejectWithValue }) => {
     try {
-      setAuthHeader(persitedToken);
-      const { data } = await axios.get('/users/current');
+      const { data } = await serverAPI.get('/users/current');
+
+      return data.data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword',
+  async (email, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.post('/users/reset-password', { email });
 
       return data.data;
     } catch (err) {

@@ -13,8 +13,6 @@ import { register } from '../../redux/auth/authOperations';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import { useAuth } from '../../hooks';
-
 export const RegisterForm = () => {
   const [isErrorName, setIsErrorName] = useState(null);
   const [isErrorMail, setIsErrorMail] = useState(null);
@@ -22,8 +20,6 @@ export const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  // const { verify } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -107,6 +103,7 @@ export const RegisterForm = () => {
               id="email"
               label="E-mail"
               name="email"
+              type="email"
               onChange={handleChangeEmail}
               error={isErrorMail}
               helperText={'Domain must match "mail.com"'}

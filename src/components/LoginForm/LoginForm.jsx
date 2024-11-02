@@ -11,6 +11,7 @@ import {
 import LoginIcon from '@mui/icons-material/Login';
 import { logIn } from '../../redux/auth/authOperations';
 import { useState } from 'react';
+import { ResetPasswordModal } from 'components/ResetPasswordModal';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -96,6 +97,9 @@ export const LoginForm = () => {
               error={isErrorPass}
               helperText={'Password must be more than 7 characters'}
             />
+
+            <ResetPasswordModal />
+
             <Button
               type="submit"
               fullWidth
