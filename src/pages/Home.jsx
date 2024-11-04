@@ -15,6 +15,7 @@ export default function Home() {
       >
         Welcome to the Trade Tracker!
       </Typography>
+
       <Typography
         component={'p'}
         sx={{ mt: 4, fontSize: 24, mx: 'auto', textAlign: 'center' }}

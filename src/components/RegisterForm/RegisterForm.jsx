@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import {
   Avatar,
   Button,
@@ -9,20 +12,21 @@ import {
   Container,
 } from '@mui/material';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+
 import { register } from '../../redux/auth/authOperations';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const RegisterForm = () => {
-  const [isErrorName, setIsErrorName] = useState(null);
-  const [isErrorMail, setIsErrorMail] = useState(null);
-  const [isErrorPass, setIsErrorPass] = useState(null);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  const [isErrorName, setIsErrorName] = useState(null);
+  const [isErrorMail, setIsErrorMail] = useState(null);
+  const [isErrorPass, setIsErrorPass] = useState(null);
+
   const handleSubmit = e => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
 
     const data = {
@@ -30,7 +34,9 @@ export const RegisterForm = () => {
       email: formData.get('email'),
       password: formData.get('password'),
     };
+
     dispatch(register(data));
+
     e.target.reset();
 
     navigate('/verify');
@@ -43,17 +49,21 @@ export const RegisterForm = () => {
       setIsErrorName(null);
     }
   };
+
   const handleChangeEmail = e => {
     const validMail = e.target.value.includes('mail.com');
     const minLength = e.target.value.length > 9;
+
     if (validMail && minLength) {
       setIsErrorMail(null);
     } else {
       setIsErrorMail(true);
     }
   };
+
   const handleChangePassword = e => {
     const isValidPassword = e.target.value.length > 6;
+
     if (isValidPassword) {
       setIsErrorPass(null);
     } else {
@@ -65,6 +75,7 @@ export const RegisterForm = () => {
     <>
       <Container component="div" maxWidth="xs">
         <CssBaseline />
+
         <Box
           sx={{
             marginTop: 8,
@@ -76,9 +87,11 @@ export const RegisterForm = () => {
           <Avatar sx={{ m: 1, bgcolor: 'black' }}>
             <HowToRegIcon />
           </Avatar>
+
           <Typography component="h2" variant="h5">
             Register
           </Typography>
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -96,6 +109,7 @@ export const RegisterForm = () => {
               error={isErrorName}
               helperText={'Enter your name!'}
             />
+
             <TextField
               margin="normal"
               required
@@ -108,6 +122,7 @@ export const RegisterForm = () => {
               error={isErrorMail}
               helperText={'Domain must match "mail.com"'}
             />
+
             <TextField
               margin="normal"
               required

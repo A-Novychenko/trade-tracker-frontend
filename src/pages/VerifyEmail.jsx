@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
+
 import { Button, Container } from '@mui/material';
 
-import { useAuth } from '../hooks';
 import { setVerify } from '../redux/auth/authSlice';
 import { resendVerify } from '../redux/auth/authOperations';
+import { useAuth } from '../hooks';
 
 export default function VerifyEmail() {
+  const dispatch = useDispatch();
   const { verify, user } = useAuth();
 
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
 
   const success = searchParams.get('success');

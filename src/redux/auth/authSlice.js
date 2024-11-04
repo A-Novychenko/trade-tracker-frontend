@@ -1,8 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+
 import {
+  register,
   logIn,
   resendVerify,
-  register,
   logOut,
   refreshUser,
   resetPassword,
@@ -10,8 +11,8 @@ import {
 
 const extraActions = [
   register,
-  resendVerify,
   logIn,
+  resendVerify,
   logOut,
   refreshUser,
   resetPassword,
@@ -27,7 +28,7 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-  name: 'contacts',
+  name: 'auth',
   initialState,
 
   reducers: {
@@ -45,7 +46,6 @@ const authSlice = createSlice({
       .addCase(register.pending, state => {
         state.isLoading = true;
       })
-
       .addCase(register.fulfilled, (state, { payload: { user, verify } }) => {
         state.user = user;
         state.isLoading = false;
@@ -104,5 +104,6 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+
 export const { setLoggedOut } = authSlice.actions;
 export const { setVerify } = authSlice.actions;

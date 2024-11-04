@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { logOut } from '../../redux/auth/authOperations';
-import { useAuth } from '../../hooks';
 
 import { Box, Button, Typography } from '@mui/material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+
+import { logOut } from '../../redux/auth/authOperations';
+import { useAuth } from '../../hooks';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export const UserMenu = () => {
     >
       <Box sx={{ display: 'flex' }}>
         <AccountBoxIcon sx={{ mr: 1 }} />
+
         <Typography>Welcome, {user.name}</Typography>
       </Box>
 

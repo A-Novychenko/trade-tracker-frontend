@@ -10,10 +10,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 h1,
 h2,
 h3,
@@ -24,6 +26,7 @@ p {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 ol,
 ul {
   margin-top: 0;
@@ -31,11 +34,13 @@ ul {
   padding-left: 0;
   list-style: none;
 }
+
 img {
   display: block;
   max-width: 100%;
   height: auto;
 }
+
 .list {
   list-style: none;
 }

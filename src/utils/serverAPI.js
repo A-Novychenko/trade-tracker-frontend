@@ -8,3 +8,21 @@ export const serverAPI = axios.create({
   baseURL: serverURL,
   withCredentials: true,
 });
+
+serverAPI.interceptors.response.use(
+  res => res,
+
+  async e => {
+    if (e.response.status === 401) {
+      try {
+        await serverAPI.post('/users/refresh');
+
+        return serverAPI(e.config);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(e);
+  }
+);

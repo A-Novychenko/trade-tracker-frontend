@@ -11,22 +11,22 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 
-import { filterReducer } from './contacts/filterSlice';
-import { contactsReducer } from './contacts/contactsSlice';
 import { authReducer } from './auth/authSlice';
+import { filterReducer } from './payments/filterSlice';
+import { paymentsReducer } from './payments/paymentsSlice';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: [],
 };
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    contacts: contactsReducer,
+    payments: paymentsReducer,
     filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>

@@ -1,19 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:3007/api';
+import { serverAPI } from '../../utils/serverAPI';
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
+export const fetchPayments = createAsyncThunk(
+  'payments/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
-      const resp = await axios.get('/contacts');
+      const resp = await serverAPI.get('/payments');
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
         return rejectWithValue(
-          'Authorization problem. Contact technical support: support@mail.com'
+          'Authorization problem. Payments technical support: support@mail.com'
         );
       }
       return rejectWithValue(err.message);
@@ -21,16 +19,16 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
+export const addPayment = createAsyncThunk(
+  'payments/addPayment',
   async ({ name, number }, { rejectWithValue }) => {
     try {
-      const resp = await axios.post('/contacts', { name, number });
+      const resp = await serverAPI.post('/payments', { name, number });
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
         return rejectWithValue(
-          'Authorization problem. Contact technical support: support@mail.com'
+          'Authorization problem. Payments technical support: support@mail.com'
         );
       }
       return rejectWithValue(err.message);
@@ -38,32 +36,33 @@ export const addContact = createAsyncThunk(
   }
 );
 
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact ',
+export const deletePayment = createAsyncThunk(
+  'payments/deletePayment ',
   async (id, { rejectWithValue }) => {
     try {
-      const resp = await axios.delete(`/contacts/${id}`);
+      const resp = await serverAPI.delete(`/payments/${id}`);
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
         return rejectWithValue(
-          'Authorization problem. Contact technical support: support@mail.com'
+          'Authorization problem. Payments technical support: support@mail.com'
         );
       }
       return rejectWithValue(err.message);
     }
   }
 );
-export const updateContact = createAsyncThunk(
-  'contacts/updateContact ',
+
+export const updatePayment = createAsyncThunk(
+  'payments/updatePayment ',
   async ({ number, name, id }, { rejectWithValue }) => {
     try {
-      const resp = await axios.patch(`/contacts/${id}`, { number, name });
+      const resp = await serverAPI.patch(`/payments/${id}`, { number, name });
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
         return rejectWithValue(
-          'Authorization problem. Contact technical support: support@mail.com'
+          'Authorization problem. Payments technical support: support@mail.com'
         );
       }
       return rejectWithValue(err.message);

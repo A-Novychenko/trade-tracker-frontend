@@ -1,5 +1,5 @@
-import { Alert, Snackbar, Stack } from '@mui/material';
 import PropTypes from 'prop-types';
+import { Alert, Snackbar, Stack } from '@mui/material';
 
 export const SnackError = ({ isOpen, handleClose, text }) => {
   const position = {

@@ -1,15 +1,16 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+
 import {
-  fetchContacts,
-  addContact,
-  deleteContact,
-  updateContact,
-} from './contactsOperations';
+  fetchPayments,
+  addPayment,
+  deletePayment,
+  updatePayment,
+} from './paymentsOperations';
 
-const extraActions = [fetchContacts, addContact, deleteContact, updateContact];
+const extraActions = [fetchPayments, addPayment, deletePayment, updatePayment];
 
-const contactsSlice = createSlice({
-  name: 'contacts',
+const paymentsSlice = createSlice({
+  name: 'payments',
   initialState: {
     items: [],
     isLoading: false,
@@ -18,41 +19,38 @@ const contactsSlice = createSlice({
   },
   extraReducers: builder =>
     builder
-      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
+      .addCase(fetchPayments.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.items = payload;
       })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
+
+      .addCase(addPayment.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.items.push(payload);
         state.completed = true;
       })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
+
+      .addCase(deletePayment.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.completed = true;
         state.items.splice(
-          state.items.findIndex(contact => contact.id === payload.id),
+          state.items.findIndex(payment => payment.id === payload.id),
           1
         );
       })
-      .addCase(updateContact.fulfilled, (state, { payload }) => {
+
+      .addCase(updatePayment.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.completed = true;
         state.items[
-          state.items.findIndex(contact => contact.id === payload.id)
+          state.items.findIndex(payment => payment.id === payload.id)
         ] = { ...payload };
       })
-      .addMatcher(
-        isAnyOf(...extraActions.map(action => action.fulfilled)),
-        state => {
-          state.isLoading = false;
-          state.error = null;
-        }
-      )
+
       .addMatcher(
         isAnyOf(...extraActions.map(action => action.pending)),
         state => {
@@ -60,6 +58,15 @@ const contactsSlice = createSlice({
           state.completed = null;
         }
       )
+
+      .addMatcher(
+        isAnyOf(...extraActions.map(action => action.fulfilled)),
+        state => {
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+
       .addMatcher(
         isAnyOf(...extraActions.map(action => action.rejected)),
         (state, { payload }) => {
@@ -69,4 +76,4 @@ const contactsSlice = createSlice({
       ),
 });
 
-export const contactsReducer = contactsSlice.reducer;
+export const paymentsReducer = paymentsSlice.reducer;

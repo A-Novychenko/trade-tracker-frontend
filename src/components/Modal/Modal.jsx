@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import { Fade, Modal, Box, Backdrop } from '@mui/material';
 
 const style = {
@@ -18,8 +17,8 @@ const style = {
 export const TransitionsModal = ({ children, handleClose, open }) => (
   <div>
     <Modal
-      aria-labelledby="add-contact"
-      aria-describedby="add-contact-form"
+      aria-labelledby="add-payment"
+      aria-describedby="add-payment-form"
       open={open}
       onClose={handleClose}
       closeAfterTransition

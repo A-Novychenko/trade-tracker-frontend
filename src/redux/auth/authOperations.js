@@ -1,37 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setLoggedOut } from './authSlice';
-import { store } from '../store';
-
 import { serverAPI } from '../../utils/serverAPI';
-
-serverAPI.interceptors.response.use(
-  // res => res,
-  res => {
-    console.log('test-interceptors valid token');
-    return res;
-  },
-  async e => {
-    console.log('start not-valid');
-    if (e.response.status === 401) {
-      try {
-        console.log('401 before');
-        await serverAPI.post('/users/refresh');
-        console.log('401 after');
-
-        return serverAPI(e.config);
-      } catch (refreshError) {
-        if (refreshError.response && refreshError.response.status === 403) {
-          console.log('403 and logout');
-          store.dispatch(setLoggedOut());
-        }
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(e);
-  }
-);
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -79,7 +48,6 @@ export const logIn = createAsyncThunk(
     try {
       const { data } = await serverAPI.post('/users/login', credentials);
 
-      console.log('data', data);
       return data.data;
     } catch (err) {
       if (err.response.status === 400) {
@@ -107,6 +75,7 @@ export const logOut = createAsyncThunk(
           'Something went wrong. Contact technical support: support@mail.com'
         );
       }
+
       return rejectWithValue(
         `Oops! What's broken, please try again later. Error: " ${err.message} " `
       );

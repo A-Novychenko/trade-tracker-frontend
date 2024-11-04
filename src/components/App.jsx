@@ -2,30 +2,31 @@ import { lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { Layout } from 'components/Layout';
-import { refreshUser } from '../redux/auth/authOperations';
-import { useAuth, useContacts } from '../hooks';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { Layout } from 'components/Layout';
+import { Loader } from 'components/Loader';
+import { SnackError, SnackSuccess, SnackWarning } from 'components//SnackBar';
 
-import { Loader } from './Loader';
-import { SnackError, SnackSuccess, SnackWarning } from './SnackBar';
+import { refreshUser } from '../redux/auth/authOperations';
+import { useAuth, usePayments } from '../hooks';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
 const VerifyEmail = lazy(() => import('../pages/VerifyEmail'));
-const ContactsPage = lazy(() => import('../pages/Contacts'));
+const DashboardPage = lazy(() => import('../pages/Dashboard'));
 
 export const App = () => {
+  const dispatch = useDispatch();
   const { isRefreshing, error, isLoggedIn, isLoading } = useAuth();
-  const { completed, errorContacts } = useContacts();
-  const [isSuchСontact, setIsSuchСontact] = useState(false);
+  const { completed, errorPayments } = usePayments();
+
+  const [isSuchPayment, setIsSuchPayment] = useState(false);
   const [showSnackErr, setShowSnackErr] = useState(false);
   const [showSnackWarning, setShowSnackWarning] = useState(false);
   const [showSnackCompleted, setShowSnackCompleted] = useState(false);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
@@ -33,14 +34,14 @@ export const App = () => {
   useEffect(() => {
     if (
       (error && error !== 'Unable to fetch user' && !isLoggedIn) ||
-      errorContacts
+      errorPayments
     ) {
       setShowSnackErr(true);
     }
     if (error && isLoggedIn) {
       setShowSnackErr(true);
     }
-  }, [error, errorContacts, isLoggedIn, setShowSnackErr]);
+  }, [error, errorPayments, isLoggedIn, setShowSnackErr]);
 
   useEffect(() => {
     if (!completed) return;
@@ -48,15 +49,15 @@ export const App = () => {
   }, [completed, setShowSnackCompleted]);
 
   useEffect(() => {
-    if (!isSuchСontact) {
+    if (!isSuchPayment) {
       setShowSnackWarning(false);
       return;
     }
     setShowSnackWarning(true);
-  }, [isSuchСontact, setShowSnackWarning]);
+  }, [isSuchPayment, setShowSnackWarning]);
 
-  const handleIsSuchСontact = text => {
-    setIsSuchСontact(text);
+  const handleIsSuchPayment = text => {
+    setIsSuchPayment(text);
   };
 
   return isRefreshing || isLoading ? (
@@ -71,16 +72,17 @@ export const App = () => {
             path="/register"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
+                redirectTo="/dashboard"
                 component={<RegisterPage />}
               />
             }
           />
+
           <Route
             path="/login"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
+                redirectTo="/dashboard"
                 component={<LoginPage />}
               />
             }
@@ -90,19 +92,19 @@ export const App = () => {
             path="/verify"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
+                redirectTo="/dashboard"
                 component={<VerifyEmail />}
               />
             }
           />
 
           <Route
-            path="/contacts"
+            path="/dashboard"
             element={
               <PrivateRoute
                 redirectTo="/login"
                 component={
-                  <ContactsPage handleIsSuchСontact={handleIsSuchСontact} />
+                  <DashboardPage handleIsSuchPayment={handleIsSuchPayment} />
                 }
               />
             }
@@ -114,7 +116,7 @@ export const App = () => {
         sx={{ width: '100%' }}
         isOpen={showSnackErr}
         handleClose={() => setShowSnackErr(false)}
-        text={error || errorContacts}
+        text={error || errorPayments}
       />
 
       <SnackWarning
@@ -122,9 +124,9 @@ export const App = () => {
         isOpen={showSnackWarning}
         handleClose={() => {
           setShowSnackWarning(false);
-          setIsSuchСontact(false);
+          setIsSuchPayment(false);
         }}
-        text={isSuchСontact}
+        text={isSuchPayment}
       />
 
       <SnackSuccess

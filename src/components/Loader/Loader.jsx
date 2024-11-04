@@ -21,6 +21,7 @@ export const Loader = () => (
     </div>
   </div>
 );
+
 export const LoaderLocal = () => (
   <div
     style={{
