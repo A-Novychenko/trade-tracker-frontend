@@ -6,8 +6,8 @@ export const fetchPayments = createAsyncThunk(
   'payments/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
-      const resp = await serverAPI.get('/payments');
-      return resp.data;
+      const { data } = await serverAPI.get('/payments');
+      return data.data;
     } catch (err) {
       if (err.response.status === 401) {
         return rejectWithValue(
@@ -23,10 +23,16 @@ export const addPayment = createAsyncThunk(
   'payments/addPayment',
   async ({ name, number }, { rejectWithValue }) => {
     try {
-      const resp = await serverAPI.post('/payments', { name, number });
-      return resp.data;
+      console.log('addPayment');
+      const { data } = await serverAPI.post('/payments', { name, number });
+      return data.data;
     } catch (err) {
       if (err.response.status === 401) {
+        return rejectWithValue(
+          'Authorization problem. Payments technical support: support@mail.com'
+        );
+      }
+      if (err.response.status === 403) {
         return rejectWithValue(
           'Authorization problem. Payments technical support: support@mail.com'
         );

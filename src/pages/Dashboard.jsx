@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux';
 import { Button, Typography } from '@mui/material';
 import PaymentIcon from '@mui/icons-material/Payment';
 
-import { Filter } from 'components/Filter';
 import { TransitionsModal } from 'components/Modal';
 
-import { addPayment } from '../redux/payments/paymentsOperations';
+import {
+  addPayment,
+  fetchPayments,
+} from '../redux/payments/paymentsOperations';
 import { usePayments } from '../hooks';
 
 export default function Dashboard({ handleIsSuchPayment }) {
@@ -29,7 +31,7 @@ export default function Dashboard({ handleIsSuchPayment }) {
       return;
     }
 
-    dispatch(addPayment({ name: '', number: '' }));
+    dispatch(addPayment({ name: 'test', number: '+380931112233' }));
   };
 
   return (
@@ -43,7 +45,6 @@ export default function Dashboard({ handleIsSuchPayment }) {
 
         <Typography ml={2}> Make a payment</Typography>
       </Button>
-      <Filter />
 
       {open && (
         <TransitionsModal handleClose={handleClose} open={open}>
@@ -52,10 +53,27 @@ export default function Dashboard({ handleIsSuchPayment }) {
           <form onSubmit={onSubmit}>
             <input type="text" />
 
-            <button type="submit"></button>
+            <button type="submit">Add payment</button>
           </form>
         </TransitionsModal>
       )}
+
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(addPayment({ name: 'test', number: '+380931112233' }));
+        }}
+      >
+        ADD payment
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(fetchPayments());
+        }}
+      >
+        Get payment
+      </button>
     </div>
   );
 }

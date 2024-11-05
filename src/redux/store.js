@@ -12,7 +12,7 @@ import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authReducer } from './auth/authSlice';
-import { filterReducer } from './payments/filterSlice';
+
 import { paymentsReducer } from './payments/paymentsSlice';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
@@ -20,14 +20,13 @@ const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: [],
+  // whitelist: [],
 };
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     payments: paymentsReducer,
-    filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

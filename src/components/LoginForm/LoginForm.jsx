@@ -32,30 +32,29 @@ export const LoginForm = () => {
       password: formData.get('password'),
     };
 
-    dispatch(logIn(data));
+    // dispatch(logIn(data));
+    dispatch(logIn({ email: 'admin@mail.com', password: 'Novik77' }));
 
     e.target.reset();
   };
 
   const handleChangeEmail = e => {
-    const validMail = e.target.value.includes('mail.com');
-    const minLength = e.target.value.length > 9;
-
-    if (validMail && minLength) {
-      setIsErrorMail(null);
-    } else {
-      setIsErrorMail(true);
-    }
+    // const validMail = e.target.value.includes('mail.com');
+    // const minLength = e.target.value.length > 9;
+    // if (validMail && minLength) {
+    //   setIsErrorMail(null);
+    // } else {
+    //   setIsErrorMail(true);
+    // }
   };
 
   const handleChangePassword = e => {
-    const isValidPassword = e.target.value.length > 6;
-
-    if (isValidPassword) {
-      setIsErrorPass(null);
-    } else {
-      setIsErrorPass(true);
-    }
+    // const isValidPassword = e.target.value.length > 6;
+    // if (isValidPassword) {
+    //   setIsErrorPass(null);
+    // } else {
+    //   setIsErrorPass(true);
+    // }
   };
 
   return (
@@ -92,7 +91,7 @@ export const LoginForm = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              onChange={handleChangeEmail}
+              // onChange={handleChangeEmail}
               error={isErrorMail}
               helperText={'Domain must match "mail.com"'}
             />
@@ -106,7 +105,7 @@ export const LoginForm = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={handleChangePassword}
+              // onChange={handleChangePassword}
               error={isErrorPass}
               helperText={'Password must be more than 7 characters'}
             />

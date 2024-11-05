@@ -26,6 +26,7 @@ const paymentsSlice = createSlice({
       })
 
       .addCase(addPayment.fulfilled, (state, { payload }) => {
+        console.log('payload', payload);
         state.isLoading = false;
         state.error = null;
         state.items.push(payload);
