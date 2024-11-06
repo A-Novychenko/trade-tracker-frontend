@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react-swc';
 
 import imagemin from 'imagemin';
 import imageminWebp from 'imagemin-webp';
-import path from 'path';
-import glob from 'fast-glob';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import glob from 'fast-glob';
+// import { fileURLToPath } from 'url';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
@@ -37,24 +37,27 @@ export default defineConfig({
       pages: '/src/pages',
     },
   },
+  // build: {
+  //   minify: false, // disable minification
+  //   rollupOptions: {
+  //     input: Object.fromEntries(
+  //       glob
+  //         .sync(['./*.html', './pages/**/*.html'])
+  //         .map(file => [
+  //           path.relative(
+  //             __dirname,
+  //             file.slice(0, file.length - path.extname(file).length)
+  //           ),
+  //           fileURLToPath(new URL(file, import.meta.url)),
+  //         ])
+  //     ),
+  //     // output unminified CSS file
+  //     output: {
+  //       assetFileNames: 'assets/[name].[ext]',
+  //     },
+  //   },
+  // },
   build: {
-    minify: false, // disable minification
-    rollupOptions: {
-      input: Object.fromEntries(
-        glob
-          .sync(['./*.html', './pages/**/*.html'])
-          .map(file => [
-            path.relative(
-              __dirname,
-              file.slice(0, file.length - path.extname(file).length)
-            ),
-            fileURLToPath(new URL(file, import.meta.url)),
-          ])
-      ),
-      // output unminified CSS file
-      output: {
-        assetFileNames: 'assets/[name].[ext]',
-      },
-    },
+    outDir: 'dist', // Змініть на 'dist' або іншу директорію, якщо необхідно
   },
 });
