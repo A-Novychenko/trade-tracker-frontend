@@ -9,6 +9,7 @@ import imageminWebp from 'imagemin-webp';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || '/A-Novychenko/trade-tracker-frontend',
   plugins: [
     react(),
     ViteImageOptimizer({
@@ -36,28 +37,5 @@ export default defineConfig({
       components: '/src/components',
       pages: '/src/pages',
     },
-  },
-  // build: {
-  //   minify: false, // disable minification
-  //   rollupOptions: {
-  //     input: Object.fromEntries(
-  //       glob
-  //         .sync(['./*.html', './pages/**/*.html'])
-  //         .map(file => [
-  //           path.relative(
-  //             __dirname,
-  //             file.slice(0, file.length - path.extname(file).length)
-  //           ),
-  //           fileURLToPath(new URL(file, import.meta.url)),
-  //         ])
-  //     ),
-  //     // output unminified CSS file
-  //     output: {
-  //       assetFileNames: 'assets/[name].[ext]',
-  //     },
-  //   },
-  // },
-  build: {
-    outDir: 'dist', // Змініть на 'dist' або іншу директорію, якщо необхідно
   },
 });
