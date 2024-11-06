@@ -3,13 +3,11 @@ import react from '@vitejs/plugin-react-swc';
 
 import imagemin from 'imagemin';
 import imageminWebp from 'imagemin-webp';
-// import path from 'path';
-// import glob from 'fast-glob';
-// import { fileURLToPath } from 'url';
+
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
-  base: process.env.VITE_BASE_PATH || '/A-Novychenko/trade-tracker-frontend',
+  base: '/',
   plugins: [
     react(),
     ViteImageOptimizer({
