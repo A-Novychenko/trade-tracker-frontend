@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --output public",
+    "build": "vite build --base=/trade-tracker-frontend/",
     "lint": "eslint .",
     "preview": "vite preview"
   },
