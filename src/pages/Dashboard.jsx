@@ -14,6 +14,8 @@ import { usePayments } from '../hooks';
 import { CustomerProfile } from 'components/CustomerProfile';
 import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
+import { TransactionList } from 'components/TransactionList';
+import { FeedbackButton } from 'components/FeedbackButton';
 
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
@@ -89,10 +91,28 @@ export default function Dashboard({ handleIsSuchPayment }) {
               Get payment
             </button>
           </div>
+          <FeedbackButton />
         </div>
         <div>
           <InvestmentOverview />
           <InvestmentConditions />
+          <h3 style={{ textAlign: 'center', color: '#fff' }}>
+            Transaction History
+          </h3>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              color: 'rgb(255 255 255 / 60%)',
+            }}
+          >
+            <p>Deposit history</p>
+            <p>Withdraw history</p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <TransactionList />
+            <TransactionList />
+          </div>
         </div>
       </div>
     </div>
