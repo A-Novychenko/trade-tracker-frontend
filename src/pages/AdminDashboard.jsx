@@ -23,7 +23,7 @@ export const AdminDashboard = () => {
         <Link to="users" style={{ color: '#fff' }}>
           Users
         </Link>
-        <Link to="transaction" style={{ color: '#fff' }}>
+        <Link to="transactions" style={{ color: '#fff' }}>
           Transaction
         </Link>
       </div>

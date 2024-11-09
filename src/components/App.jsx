@@ -126,7 +126,7 @@ export const App = () => {
                 <Route index element={<AdminPanel />} />
                 <Route path="adminpanel" element={<AdminPanel />} />
                 <Route path="users" element={<AdminUsers />} />
-                <Route path="transaction" element={<AdminTransaction />} />
+                <Route path="transactions" element={<AdminTransaction />} />
               </>
             )}
             {!isAdmin && (
