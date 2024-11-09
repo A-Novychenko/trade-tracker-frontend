@@ -94,6 +94,24 @@ export const LoginForm = () => {
               // onChange={handleChangeEmail}
               error={isErrorMail}
               helperText={'Domain must match "mail.com"'}
+              sx={{
+                '& .MuiInputBase-input': { color: 'white' },
+                '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
+                '& .MuiOutlinedInput-root': {
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                },
+                '& .MuiFormHelperText-root': {
+                  color: 'rgb(255 255 255 / 60%);',
+                },
+              }}
             />
 
             <TextField
@@ -108,6 +126,24 @@ export const LoginForm = () => {
               // onChange={handleChangePassword}
               error={isErrorPass}
               helperText={'Password must be more than 7 characters'}
+              sx={{
+                '& .MuiInputBase-input': { color: 'white' },
+                '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
+                '& .MuiOutlinedInput-root': {
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                },
+                '& .MuiFormHelperText-root': {
+                  color: 'rgb(255 255 255 / 60%);',
+                },
+              }}
             />
 
             <ResetPasswordModal />

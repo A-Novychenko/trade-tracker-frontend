@@ -1,5 +1,5 @@
 import { lazy, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { PrivateRoute } from './PrivateRoute';
@@ -10,6 +10,10 @@ import { SnackError, SnackSuccess, SnackWarning } from 'components//SnackBar';
 
 import { refreshUser } from '../redux/auth/authOperations';
 import { useAuth, usePayments } from '../hooks';
+import { AdminDashboard } from 'pages/AdminDashboard';
+import { AdminPanel } from 'pages/AdminPanel';
+import { AdminUsers } from 'pages/AdminUsers';
+import { AdminTransaction } from 'pages/AdminTransaction';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -19,13 +23,15 @@ const DashboardPage = lazy(() => import('../pages/Dashboard'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing, error, isLoggedIn, isLoading } = useAuth();
+  const { isRefreshing, error, isLoggedIn, isLoading, isAdmin } = useAuth();
   const { completed, errorPayments } = usePayments();
 
   const [isSuchPayment, setIsSuchPayment] = useState(false);
   const [showSnackErr, setShowSnackErr] = useState(false);
   const [showSnackWarning, setShowSnackWarning] = useState(false);
   const [showSnackCompleted, setShowSnackCompleted] = useState(false);
+
+  console.log(isAdmin);
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -97,18 +103,36 @@ export const App = () => {
               />
             }
           />
-
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute
-                redirectTo="/login"
-                component={
-                  <DashboardPage handleIsSuchPayment={handleIsSuchPayment} />
-                }
-              />
+              isAdmin ? (
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={
+                    <AdminDashboard handleIsSuchPayment={handleIsSuchPayment} />
+                  }
+                />
+              ) : (
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<DashboardPage />}
+                />
+              )
             }
-          />
+          >
+            {isAdmin && (
+              <>
+                <Route index element={<AdminPanel />} />
+                <Route path="adminpanel" element={<AdminPanel />} />
+                <Route path="users" element={<AdminUsers />} />
+                <Route path="transaction" element={<AdminTransaction />} />
+              </>
+            )}
+            {!isAdmin && (
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            )}
+          </Route>
         </Route>
       </Routes>
 

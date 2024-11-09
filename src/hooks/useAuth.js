@@ -7,6 +7,7 @@ import {
   selectError,
   selectVerify,
   selectIsLoading,
+  selectIsAdmin,
 } from '../redux/auth/authSelectors';
 
 export const useAuth = () => {
@@ -16,6 +17,7 @@ export const useAuth = () => {
   const error = useSelector(selectError);
   const verify = useSelector(selectVerify);
   const isLoading = useSelector(selectIsLoading);
+  const isAdmin = useSelector(selectIsAdmin);
 
-  return { user, isLoggedIn, isRefreshing, error, verify, isLoading };
+  return { user, isLoggedIn, isRefreshing, error, verify, isLoading, isAdmin };
 };

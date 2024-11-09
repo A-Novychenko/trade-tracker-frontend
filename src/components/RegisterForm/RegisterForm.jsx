@@ -108,6 +108,24 @@ export const RegisterForm = () => {
               onChange={handleChangeName}
               error={isErrorName}
               helperText={'Enter your name!'}
+              sx={{
+                '& .MuiInputBase-input': { color: 'white' },
+                '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
+                '& .MuiOutlinedInput-root': {
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                },
+                '& .MuiFormHelperText-root': {
+                  color: 'rgb(255 255 255 / 60%);',
+                },
+              }}
             />
 
             <TextField
@@ -121,6 +139,24 @@ export const RegisterForm = () => {
               onChange={handleChangeEmail}
               error={isErrorMail}
               helperText={'Domain must match "mail.com"'}
+              sx={{
+                '& .MuiInputBase-input': { color: 'white' },
+                '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
+                '& .MuiOutlinedInput-root': {
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                },
+                '& .MuiFormHelperText-root': {
+                  color: 'rgb(255 255 255 / 60%);',
+                },
+              }}
             />
 
             <TextField
@@ -134,6 +170,24 @@ export const RegisterForm = () => {
               onChange={handleChangePassword}
               error={isErrorPass}
               helperText={'Password must be more than 8 characters'}
+              sx={{
+                '& .MuiInputBase-input': { color: 'white' },
+                '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
+                '& .MuiOutlinedInput-root': {
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'orange',
+                  },
+                },
+                '& .MuiFormHelperText-root': {
+                  color: 'rgb(255 255 255 / 60%);',
+                },
+              }}
             />
 
             <Button
