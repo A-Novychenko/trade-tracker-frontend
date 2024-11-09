@@ -53,7 +53,11 @@ export function ResetPasswordModal() {
       <Link
         component="button"
         variant="body2"
-        style={{ display: 'block', textAlign: 'center' }}
+        style={{
+          display: 'block',
+          textAlign: 'center',
+          color: 'rgb(255 255 255 / 60%)',
+        }}
         onClick={handleClickOpen}
       >
         Reset password

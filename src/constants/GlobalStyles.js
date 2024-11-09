@@ -9,10 +9,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to bottom right, #113390, #0a0133);
+color:  #fff;
+background: linear-gradient(to bottom right, #113390, #0a0133);
   background-repeat: no-repeat;
-  height: 100vh;
 }
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

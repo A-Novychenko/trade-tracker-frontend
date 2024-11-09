@@ -20,7 +20,7 @@ const extraActions = [
 
 const initialState = {
   isLoading: false,
-  user: { name: null, email: null },
+  user: { name: null, email: null, role: null },
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
