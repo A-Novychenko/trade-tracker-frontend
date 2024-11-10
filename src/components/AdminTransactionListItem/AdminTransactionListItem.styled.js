@@ -29,3 +29,23 @@ export const TableItem = styled.td`
     transition: width 0.3s ease;
   }
 `;
+
+export const CustomBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  display: block;
+  background-color: #7a14ff;
+  border-radius: 12px;
+  padding: 2px 8px;
+  text-decoration: none;
+  font-weight: 700;
+  width: 100%;
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    background-color: #ff6611;
+    transition: background-color 300ms linear;
+  }
+`;
