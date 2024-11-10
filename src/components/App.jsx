@@ -14,6 +14,7 @@ import { AdminDashboard } from 'pages/AdminDashboard';
 import { AdminPanel } from 'pages/AdminPanel';
 import { AdminUsers } from 'pages/AdminUsers';
 import { AdminTransaction } from 'pages/AdminTransaction';
+import { AdminUserDetails } from './AdminUserDetails/AdminUserDetails';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -126,6 +127,7 @@ export const App = () => {
                 <Route index element={<AdminPanel />} />
                 <Route path="adminpanel" element={<AdminPanel />} />
                 <Route path="users" element={<AdminUsers />} />
+                <Route path="users/:id" element={<AdminUserDetails />} />
                 <Route path="transactions" element={<AdminTransaction />} />
               </>
             )}

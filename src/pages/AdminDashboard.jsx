@@ -1,32 +1,42 @@
 import { Link, Outlet } from 'react-router-dom';
 
+import { RiMenuUnfold3Fill } from 'react-icons/ri';
+import {
+  Sidebar,
+  BurgerBtn,
+  CloseBtn,
+  CustomLink,
+} from './AdminDashboard.styled';
+import { useState } from 'react';
+
+import { IoMdClose } from 'react-icons/io';
+
 export const AdminDashboard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(prev => !prev);
+  };
+
   return (
     <div style={{ display: 'flex' }}>
-      <div
-        style={{
-          display: 'flex',
-          gap: '20px',
-          width: '250px',
-          height: '100vh',
-          backgroundColor: 'rgb(11 19 67 / 74%)',
-          color: 'white',
-          transition: 'width 0.3s ease',
-          padding: '20px',
-          flexDirection: 'column',
-        }}
-      >
-        <h2>Admin menu</h2>
-        <Link to="adminpanel" style={{ color: '#fff' }}>
+      <BurgerBtn onClick={() => toggleSidebar()}>
+        <RiMenuUnfold3Fill size={24} color="#fff" />
+      </BurgerBtn>
+      <Sidebar isOpen={isOpen}>
+        <CloseBtn type="button" onClick={() => toggleSidebar()}>
+          <IoMdClose size={24} />
+        </CloseBtn>
+        <CustomLink to="adminpanel" style={{ color: '#fff' }}>
           Dashboard
-        </Link>
-        <Link to="users" style={{ color: '#fff' }}>
+        </CustomLink>
+        <CustomLink to="users" style={{ color: '#fff' }}>
           Users
-        </Link>
-        <Link to="transactions" style={{ color: '#fff' }}>
+        </CustomLink>
+        <CustomLink to="transactions" style={{ color: '#fff' }}>
           Transaction
-        </Link>
-      </div>
+        </CustomLink>
+      </Sidebar>
       <div style={{ flex: 1, padding: '20px' }}>
         <Outlet />
       </div>

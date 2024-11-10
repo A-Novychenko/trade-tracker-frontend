@@ -4,12 +4,13 @@ import { Box, Button, Toolbar, Typography } from '@mui/material';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 import { useAuth } from '../../hooks';
+import { CustomBox } from './Navigation.styled';
 
 export const Navigation = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <Box component={'nav'}>
+    <CustomBox component={'nav'}>
       <Toolbar sx={{ backgroundColor: 'orangered' }}>
         <Button component={RouterNavLink} variant="outline" to="/">
           <CurrencyExchangeIcon sx={{ mr: 2 }} />
@@ -31,6 +32,6 @@ export const Navigation = () => {
           </Button>
         )}
       </Toolbar>
-    </Box>
+    </CustomBox>
   );
 };

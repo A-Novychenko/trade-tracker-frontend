@@ -1,4 +1,5 @@
-import { TableItem, TableRow } from './AdminUserListItem.styled';
+import { Link } from 'react-router-dom';
+import { TableItem, TableRow, CustomLink } from './AdminUserListItem.styled';
 
 export const AdminUserListItem = ({ user }) => {
   const { name, email, percentage, id, investment, registrationDate } = user;
@@ -11,7 +12,7 @@ export const AdminUserListItem = ({ user }) => {
       <TableItem>{registrationDate}</TableItem>
       <TableItem>{id}</TableItem>
       <TableRow>
-        <button type="button">Action</button>
+        <CustomLink to={`/dashboard/users/${id}`}>More info</CustomLink>
       </TableRow>
     </TableRow>
   );

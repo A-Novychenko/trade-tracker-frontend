@@ -1,5 +1,5 @@
 import { AdminTransactionListItem } from 'components/AdminTransactionListItem';
-import { Table, TableHead } from './AdminTransactionList.styled';
+import { Table, TableHead, TableRow } from './AdminTransactionList.styled';
 
 const testTransaction = [
   {
@@ -44,14 +44,14 @@ export const AdminTransactionList = () => {
   return (
     <Table>
       <thead>
-        <tr>
+        <TableRow>
           <TableHead>Data</TableHead>
           <TableHead>Owner</TableHead>
           <TableHead>Type</TableHead>
           <TableHead>Amount</TableHead>
           <TableHead>ID</TableHead>
           <TableHead>Approve</TableHead>
-        </tr>
+        </TableRow>
       </thead>
       <tbody>
         {testTransaction.map((transaction, idx) => {
