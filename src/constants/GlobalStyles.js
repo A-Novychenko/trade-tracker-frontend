@@ -10,8 +10,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 color:  #fff;
-background: linear-gradient(to bottom right, #113390, #0a0133);
-  background-repeat: no-repeat;
+
+background-image: linear-gradient(to bottom right, #113390, #0a0133);
+background-repeat: no-repeat;
+
+min-height: 100vh;
+display: flex;
+flex-direction: column;
 }
 
 
@@ -48,5 +53,9 @@ img {
 
 .list {
   list-style: none;
+}
+
+#root {
+flex-grow: 1
 }
 `;
