@@ -1,5 +1,5 @@
 import { TransactionListItem } from 'components/TransactionListItem';
-import { Table, TableHead } from './Transaction.styled';
+import { Table, TableHead, TableRow } from './Transaction.styled';
 
 const testData = [
   {
@@ -35,14 +35,14 @@ export const TransactionList = () => {
   return (
     <Table>
       <thead>
-        <tr>
+        <TableRow>
           <TableHead>Data</TableHead>
           <TableHead>Type</TableHead>
           <TableHead>Amount</TableHead>
           {/* <TableHead>Created</TableHead> */}
           <TableHead>Status</TableHead>
           <TableHead>Details</TableHead>
-        </tr>
+        </TableRow>
       </thead>
       <tbody>
         {testData.map((item, idx) => {

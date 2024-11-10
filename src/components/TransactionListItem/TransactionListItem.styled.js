@@ -29,3 +29,19 @@ export const TableItem = styled.td`
     transition: width 0.3s ease;
   }
 `;
+
+export const DetailBtn = styled.button`
+  cursor: pointer;
+  background-color: #8c36ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: #14c21f;
+    color: #000;
+  }
+`;

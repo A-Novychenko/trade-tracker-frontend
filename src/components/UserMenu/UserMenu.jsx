@@ -5,6 +5,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import { logOut } from '../../redux/auth/authOperations';
 import { useAuth } from '../../hooks';
+import { CustomText } from './UserMenu.styled';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const UserMenu = () => {
       <Box sx={{ display: 'flex' }}>
         <AccountBoxIcon sx={{ mr: 1 }} />
 
-        <Typography>Welcome, {user.name}</Typography>
+        <CustomText>Welcome, {user.name}</CustomText>
       </Box>
 
       <Button
