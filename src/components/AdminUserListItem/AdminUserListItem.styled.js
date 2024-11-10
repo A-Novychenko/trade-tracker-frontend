@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { Link } from 'react-router-dom';
+
 export const TableRow = styled.tr`
   position: relative;
   font-size: 14px;
@@ -27,5 +29,23 @@ export const TableItem = styled.td`
     width: 0;
     background-color: white;
     transition: width 0.3s ease;
+  }
+`;
+
+export const CustomLink = styled(Link)`
+  text-align: center;
+  display: block;
+  background-color: #7a14ff;
+  border-radius: 12px;
+  padding: 2px 8px;
+  text-decoration: none;
+  font-weight: 700;
+  width: 100%;
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    background-color: #ff6611;
+    transition: background-color 300ms linear;
   }
 `;

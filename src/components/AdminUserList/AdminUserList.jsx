@@ -1,5 +1,5 @@
 import { AdminUserListItem } from 'components/AdminUserListItem';
-import { Table, TableHead } from './AdminUserList.styled';
+import { Table, TableHead, TableRow } from './AdminUserList.styled';
 
 const testUsers = [
   {
@@ -39,7 +39,7 @@ export const AdminUserList = () => {
   return (
     <Table>
       <thead>
-        <tr>
+        <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Investment</TableHead>
@@ -47,7 +47,7 @@ export const AdminUserList = () => {
           <TableHead>registrationDate</TableHead>
           <TableHead>ID</TableHead>
           <TableHead>Action</TableHead>
-        </tr>
+        </TableRow>
       </thead>
       <tbody>
         {testUsers.map((user, idx) => {

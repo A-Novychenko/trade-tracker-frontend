@@ -1,5 +1,5 @@
 import { AdminTransactionListItem } from 'components/AdminTransactionListItem';
-import { Table, TableHead } from './AdminTransactionList.styled';
+import { Table, TableHead, TableRow } from './AdminTransactionList.styled';
 
 const testTransaction = [
   {
@@ -33,7 +33,7 @@ const testTransaction = [
     _id: '672d2871f0a2515c91c2505e',
     type: 'deposit',
     amount: 7000,
-    approved: true,
+    approved: false,
     owner: '672cf691c82bd314d79a46fc',
     createdAt: '2024-11-06T20:21:01.876Z',
     updatedAt: '2024-11-07T20:53:59.805Z',
@@ -44,14 +44,14 @@ export const AdminTransactionList = () => {
   return (
     <Table>
       <thead>
-        <tr>
+        <TableRow>
           <TableHead>Data</TableHead>
           <TableHead>Owner</TableHead>
           <TableHead>Type</TableHead>
           <TableHead>Amount</TableHead>
           <TableHead>ID</TableHead>
           <TableHead>Approve</TableHead>
-        </tr>
+        </TableRow>
       </thead>
       <tbody>
         {testTransaction.map((transaction, idx) => {
