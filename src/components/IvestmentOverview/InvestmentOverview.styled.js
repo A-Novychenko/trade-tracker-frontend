@@ -2,13 +2,22 @@ import styled from '@emotion/styled';
 
 export const Container = styled.ul`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between;
   border: 1px solid transparent;
-  padding: 8px 16px;
+  padding: 8px 16px; */
   /* width: 100%;
   border-radius: 8px;
   background-color: rgb(11 19 67 / 74%); */
   color: #fff;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+  }
 `;
 
 export const ItemWrapper = styled.li`
@@ -21,14 +30,16 @@ export const ItemWrapper = styled.li`
   justify-content: center;
   align-items: center;
 
-  :not(:last-child)::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 15%;
-    width: 1px;
-    height: 70%;
-    background-color: white;
+  @media screen and (min-width: 768px) {
+    :not(:last-child)::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 15%;
+      width: 1px;
+      height: 70%;
+      background-color: white;
+    }
   }
 `;
 
@@ -42,10 +53,14 @@ export const Value = styled.p`
 `;
 
 export const MainWrap = styled.div`
-  width: 1000px;
+  width: 100%;
   border-radius: 8px;
   margin-bottom: 16px;
   background-color: rgb(11 19 67 / 74%);
+
+  @media screen and (min-width: 768px) {
+    width: 1000px;
+  }
 `;
 
 export const PercentageWrap = styled.span`

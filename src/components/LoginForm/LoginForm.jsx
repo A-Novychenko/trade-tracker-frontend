@@ -33,7 +33,12 @@ export const LoginForm = () => {
     };
 
     // dispatch(logIn(data));
-    dispatch(logIn({ email: 'admin@mail.com', password: 'Novik77' }));
+    dispatch(
+      logIn({
+        email: 'smm.webdevsynergy@gmail.com',
+        password: 'Novik77',
+      })
+    );
 
     e.target.reset();
   };

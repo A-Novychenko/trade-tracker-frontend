@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Typography } from '@mui/material';
-import PaymentIcon from '@mui/icons-material/Payment';
 
 import { TransitionsModal } from 'components/Modal';
 
@@ -16,6 +15,14 @@ import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
 import { TransactionList } from 'components/TransactionList';
 import { FeedbackButton } from 'components/FeedbackButton';
+import { DashboardBanner } from 'components/DashbordBanner';
+import {
+  Container,
+  OverviewContainer,
+  TransactionListTitle,
+  TransactionListWrap,
+} from './Dashboard.styled';
+import { UserPayment } from 'components/UserPayment';
 
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
@@ -41,80 +48,29 @@ export default function Dashboard({ handleIsSuchPayment }) {
 
   return (
     <div>
-      <div style={{ display: 'flex' }}>
+      <Container>
         <div>
           <CustomerProfile />
-          <div
-            style={{
-              borderRadius: '8px',
-              backgroundColor: 'rgb(11 19 67 / 74%)',
-              padding: '8px 16px',
-              marginRight: '16px',
-            }}
-          >
-            <Button
-              onClick={handleOpen}
-              variant="contained"
-              sx={{ display: 'flex', mr: 'auto', my: 4, bgcolor: 'orangered' }}
-            >
-              <PaymentIcon fontSize="large" />
-
-              <Typography ml={2}> Make a payment</Typography>
-            </Button>
-
-            {open && (
-              <TransitionsModal handleClose={handleClose} open={open}>
-                <p>Payment Form</p>
-
-                <form onSubmit={onSubmit}>
-                  <input type="text" />
-
-                  <button type="submit">Add payment</button>
-                </form>
-              </TransitionsModal>
-            )}
-
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(addPayment({ name: 'test', number: '+380931112233' }));
-              }}
-            >
-              ADD payment
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(fetchPayments());
-              }}
-            >
-              Get payment
-            </button>
-          </div>
+          <UserPayment />
           <FeedbackButton />
+          <DashboardBanner />
         </div>
-        <div>
+        <OverviewContainer>
           <InvestmentOverview />
           <InvestmentConditions />
           <h3 style={{ textAlign: 'center', color: '#fff' }}>
             Transaction History
           </h3>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              color: 'rgb(255 255 255 / 60%)',
-            }}
-          >
+          <TransactionListTitle>
             <p>Deposit history</p>
             <p>Withdraw history</p>
-          </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          </TransactionListTitle>
+          <TransactionListWrap style={{ display: 'flex', gap: '12px' }}>
             <TransactionList />
             <TransactionList />
-          </div>
-        </div>
-      </div>
+          </TransactionListWrap>
+        </OverviewContainer>
+      </Container>
     </div>
   );
 }
