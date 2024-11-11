@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
   Dialog,
@@ -8,10 +9,36 @@ import {
   Button,
   TextField,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getUserById,
+  updatePercentage,
+} from '../../redux/admin/adminOperation';
 
 export const AdminUserDetails = () => {
+  const { id } = useParams();
+
   const [isOpen, setIsOpen] = useState(false);
   const [percentage, setPercentage] = useState('');
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async id => {
+      try {
+        const resp = await dispatch(getUserById(id));
+
+        const userData = resp.payload.data.user[0];
+        setUser(userData);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    if (id) {
+      getUser(id);
+    }
+  }, [id, dispatch, percentage]);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -22,7 +49,7 @@ export const AdminUserDetails = () => {
   };
 
   const handleConfirm = () => {
-    console.log('parcentage', percentage);
+    dispatch(updatePercentage({ id, percentage }));
     setIsOpen(false);
   };
 
@@ -31,22 +58,29 @@ export const AdminUserDetails = () => {
   };
   return (
     <div>
-      <img alt="user avatar" />
-      <ul>
-        <li>ID</li>
-        <li>Name</li>
-        <li>Email</li>
-        <li>
-          <div>
-            <p>Percentage</p>
-            <button type="button" onClick={handleOpen}>
-              Edit
-            </button>
-          </div>
-        </li>
-        <li>Investment</li>
-        <li>Registration Date</li>
-      </ul>
+      {user && (
+        <ul>
+          <li>
+            <img alt="user" src={`http:${user.avatarURL}`} />
+          </li>
+          <li>ID: {user?._id}</li>
+          <li>Name: {user?.name}</li>
+          <li>Email: {user?.email}</li>
+          <li>
+            <div>
+              <p>Percentage: {user?.investment.percentage}</p>
+              <button type="button" onClick={handleOpen}>
+                Edit
+              </button>
+            </div>
+          </li>
+          <li>Investment: {user?.investment.investment}</li>
+          <li>Registration Date: {user?.createdAt}</li>
+          <li>
+            <button type="button">delete</button>
+          </li>
+        </ul>
+      )}
       {isOpen && (
         <Dialog open={isOpen} onClose={handleClose}>
           <DialogTitle>Edit user percentage</DialogTitle>

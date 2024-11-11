@@ -14,6 +14,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/authSlice';
 
 import { paymentsReducer } from './payments/paymentsSlice';
+import { adminReducer } from './admin/adminSlice';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 
@@ -27,6 +28,7 @@ export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     payments: paymentsReducer,
+    admin: adminReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

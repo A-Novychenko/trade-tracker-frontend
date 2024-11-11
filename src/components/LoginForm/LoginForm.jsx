@@ -35,7 +35,7 @@ export const LoginForm = () => {
     // dispatch(logIn(data));
     dispatch(
       logIn({
-        email: 'smm.webdevsynergy@gmail.com',
+        email: 'admin@mail.com',
         password: 'Novik77',
       })
     );

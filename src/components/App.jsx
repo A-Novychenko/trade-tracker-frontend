@@ -32,8 +32,6 @@ export const App = () => {
   const [showSnackWarning, setShowSnackWarning] = useState(false);
   const [showSnackCompleted, setShowSnackCompleted] = useState(false);
 
-  console.log(isAdmin);
-
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
