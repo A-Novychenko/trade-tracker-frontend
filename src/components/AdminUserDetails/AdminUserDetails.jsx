@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  deleteUser,
   getUserById,
   updatePercentage,
 } from '../../redux/admin/adminOperation';
@@ -38,7 +39,7 @@ export const AdminUserDetails = () => {
     if (id) {
       getUser(id);
     }
-  }, [id, dispatch, percentage]);
+  }, [id, dispatch, isOpen]);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -56,6 +57,15 @@ export const AdminUserDetails = () => {
   const handleInputChange = event => {
     setPercentage(event.target.value);
   };
+
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteUser(id)).unwrap();
+      setUser(null);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
   return (
     <div>
       {user && (
@@ -68,16 +78,18 @@ export const AdminUserDetails = () => {
           <li>Email: {user?.email}</li>
           <li>
             <div>
-              <p>Percentage: {user?.investment.percentage}</p>
+              <p>Percentage: {user?.investment?.percentage || 0}</p>
               <button type="button" onClick={handleOpen}>
                 Edit
               </button>
             </div>
           </li>
-          <li>Investment: {user?.investment.investment}</li>
+          <li>Investment: {user?.investment?.investment || 0}</li>
           <li>Registration Date: {user?.createdAt}</li>
           <li>
-            <button type="button">delete</button>
+            <button type="button" onClick={() => handleDelete()}>
+              delete
+            </button>
           </li>
         </ul>
       )}

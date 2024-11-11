@@ -88,7 +88,7 @@ const adminSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteUser.fulfilled, (state, { payload }) => {
-        const deletedUserId = payload.data.user._id;
+        const deletedUserId = payload.user._id;
         state.users = state.users.filter(user => user._id !== deletedUserId);
         state.isLoading = false;
       })

@@ -10,8 +10,8 @@ export const AdminUserListItem = ({ user }) => {
     <TableRow>
       <TableItem>{name}</TableItem>
       <TableItem>{email}</TableItem>
-      <TableItem>{investment.investment}</TableItem>
-      <TableItem>{investment.percentage}</TableItem>
+      <TableItem>{investment?.total || 0}</TableItem>
+      <TableItem>{investment?.percentage || 0}</TableItem>
       <TableItem>{date}</TableItem>
       <TableItem>{id}</TableItem>
       <TableRow>
