@@ -49,8 +49,8 @@ export const AdminUserDetails = () => {
     setIsOpen(false);
   };
 
-  const handleConfirm = () => {
-    dispatch(updatePercentage({ id, percentage }));
+  const handleConfirm = async () => {
+    await dispatch(updatePercentage({ id, percentage }));
     setIsOpen(false);
   };
 
