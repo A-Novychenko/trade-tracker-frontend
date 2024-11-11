@@ -1,15 +1,18 @@
-import { Link } from 'react-router-dom';
+import { getFormattedDate } from '../../utils/getFormattedDate';
 import { TableItem, TableRow, CustomLink } from './AdminUserListItem.styled';
 
 export const AdminUserListItem = ({ user }) => {
-  const { name, email, percentage, id, investment, registrationDate } = user;
+  const { name, email, _id: id, investment, createdAt } = user;
+
+  const date = getFormattedDate(createdAt);
+
   return (
     <TableRow>
       <TableItem>{name}</TableItem>
       <TableItem>{email}</TableItem>
-      <TableItem>{percentage}</TableItem>
-      <TableItem>{investment}</TableItem>
-      <TableItem>{registrationDate}</TableItem>
+      <TableItem>{investment.investment}</TableItem>
+      <TableItem>{investment.percentage}</TableItem>
+      <TableItem>{date}</TableItem>
       <TableItem>{id}</TableItem>
       <TableRow>
         <CustomLink to={`/dashboard/users/${id}`}>More info</CustomLink>

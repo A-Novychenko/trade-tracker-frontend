@@ -1,41 +1,18 @@
 import { AdminUserListItem } from 'components/AdminUserListItem';
 import { Table, TableHead, TableRow } from './AdminUserList.styled';
-
-const testUsers = [
-  {
-    name: 'John',
-    email: 'test@example.com',
-    investment: 12000,
-    percentage: '8%',
-    registrationDate: '12.11.2023',
-  },
-  {
-    name: 'Kiwi',
-    email: 'test@example.com',
-    investment: 181000,
-    percentage: '9%',
-    registrationDate: '12.11.2023',
-    id: 'asdas324234asfaf',
-  },
-  {
-    name: 'Mango',
-    email: 'test@example.com',
-    investment: 22000,
-    percentage: '10%',
-    registrationDate: '12.11.2023',
-    id: 'asdas324234asfaf',
-  },
-  {
-    name: 'Jack Sparrow',
-    email: 'test@example.com',
-    investment: 1000,
-    percentage: '8%',
-    registrationDate: '12.11.2023',
-    id: 'asdas324234asfaf',
-  },
-];
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllUsers } from '../../redux/admin/adminOperation';
+import { useAdmin } from '../../hooks/useAdmin';
 
 export const AdminUserList = () => {
+  const dispatch = useDispatch();
+  const { allUsers, isLoading, isError } = useAdmin();
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
   return (
     <Table>
       <thead>
@@ -50,9 +27,10 @@ export const AdminUserList = () => {
         </TableRow>
       </thead>
       <tbody>
-        {testUsers.map((user, idx) => {
-          return <AdminUserListItem key={idx} user={user} />;
-        })}
+        {!isLoading &&
+          allUsers.map((user, idx) => {
+            return <AdminUserListItem key={idx} user={user} />;
+          })}
       </tbody>
     </Table>
   );

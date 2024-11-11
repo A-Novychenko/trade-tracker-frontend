@@ -18,9 +18,13 @@ import {
 } from './AdminTransactionListItem.styled';
 
 import { MdOutlineDone } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { confirmTransaction } from '../../redux/admin/adminOperation';
 
 export const AdminTransactionListItem = ({ transaction }) => {
   const { _id: id, owner, type, amount, approved, createdAt } = transaction;
+
+  const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +37,7 @@ export const AdminTransactionListItem = ({ transaction }) => {
   };
 
   const handleConfirm = () => {
-    console.log('Approved');
+    dispatch(confirmTransaction(id));
     setIsOpen(false);
   };
 
@@ -41,8 +45,8 @@ export const AdminTransactionListItem = ({ transaction }) => {
 
   return (
     <TableRow>
-      <TableItem>{date}</TableItem>
-      <TableItem>{owner}</TableItem>
+      {/* <TableItem>{date}</TableItem> */}
+      <TableItem>{owner._id}</TableItem>
       <TableItem>{type}</TableItem>
       <TableItem>{amount}</TableItem>
       <TableItem>{id}</TableItem>
