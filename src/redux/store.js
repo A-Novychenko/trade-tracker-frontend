@@ -15,6 +15,7 @@ import { authReducer } from './auth/authSlice';
 
 import { paymentsReducer } from './payments/paymentsSlice';
 import { adminReducer } from './admin/adminSlice';
+import { langReducer } from './lang/langSlice';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 
@@ -23,10 +24,15 @@ const authPersistConfig = {
   storage,
   // whitelist: [],
 };
+const langPersistConfig = {
+  key: 'lang',
+  storage,
+};
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    lang: persistReducer(langPersistConfig, langReducer),
     payments: paymentsReducer,
     admin: adminReducer,
   },

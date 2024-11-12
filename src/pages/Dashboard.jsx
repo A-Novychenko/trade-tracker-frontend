@@ -14,7 +14,7 @@ import { CustomerProfile } from 'components/CustomerProfile';
 import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
 import { TransactionList } from 'components/TransactionList';
-import { FeedbackButton } from 'components/FeedbackButton';
+// import { FeedbackButton } from 'components/FeedbackButton';
 import { DashboardBanner } from 'components/DashbordBanner';
 import {
   Container,
@@ -23,6 +23,7 @@ import {
   TransactionListWrap,
 } from './Dashboard.styled';
 import { UserPayment } from 'components/UserPayment';
+import { FeedbackForm } from 'components/FeedbackForm';
 
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
@@ -52,7 +53,8 @@ export default function Dashboard({ handleIsSuchPayment }) {
         <div>
           <CustomerProfile />
           <UserPayment />
-          <FeedbackButton />
+          {/* <FeedbackButton /> */}
+          <FeedbackForm />
           <DashboardBanner />
         </div>
         <OverviewContainer>
