@@ -3,6 +3,7 @@ import { AppBar as AppBarContainer, Box, Container } from '@mui/material';
 import { AuthNav } from 'components/AuthNav';
 import { Navigation } from 'components/Navigation';
 import { UserMenu } from 'components/UserMenu';
+import { LangSwitcher } from 'components/LangSwitcher';
 
 import { useAuth } from '../../hooks';
 
@@ -15,6 +16,8 @@ export const AppBar = () => {
         <Container maxWidth="xl">
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Navigation />
+
+            <LangSwitcher />
 
             {isLoggedIn ? <UserMenu /> : <AuthNav />}
           </Box>

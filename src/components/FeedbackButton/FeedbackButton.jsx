@@ -1,5 +1,9 @@
 import { ContactBtn } from './FeedbackButton.styled';
 
-export const FeedbackButton = () => {
-  return <ContactBtn type="button">Contact us now</ContactBtn>;
+export const FeedbackButton = ({ action }) => {
+  return (
+    <ContactBtn onClick={action} type="button">
+      Contact us now
+    </ContactBtn>
+  );
 };
