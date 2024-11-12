@@ -17,6 +17,15 @@ const paymentsSlice = createSlice({
     error: null,
     completed: null,
   },
+  reducers: {
+    setError(state, action) {
+      state.error = action.payload;
+    },
+
+    setCompleted(state, action) {
+      state.completed = action.payload;
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(fetchPayments.fulfilled, (state, { payload }) => {
@@ -78,3 +87,5 @@ const paymentsSlice = createSlice({
 });
 
 export const paymentsReducer = paymentsSlice.reducer;
+
+export const { setError, setCompleted } = paymentsSlice.actions;
