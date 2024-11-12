@@ -16,7 +16,7 @@ import { serverAPI } from 'utils/serverAPI';
 import { setError, setCompleted } from '@/payments/paymentsSlice';
 import { useDispatch } from 'react-redux';
 
-export const FeedbackForm = () => {
+export const Popup = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);

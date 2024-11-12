@@ -53,7 +53,6 @@ export default function Dashboard({ handleIsSuchPayment }) {
         <div>
           <CustomerProfile />
           <UserPayment />
-          {/* <FeedbackButton /> */}
           <FeedbackForm />
           <DashboardBanner />
         </div>
