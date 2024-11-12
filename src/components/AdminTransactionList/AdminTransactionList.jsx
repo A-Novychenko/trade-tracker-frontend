@@ -1,17 +1,11 @@
 import { AdminTransactionListItem } from 'components/AdminTransactionListItem';
-import { Table, TableHead, TableRow } from './AdminTransactionList.styled';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAllTransactions } from '../../redux/admin/adminOperation';
+
 import { useAdmin } from '../../hooks/index';
 
-export const AdminTransactionList = () => {
-  const dispatch = useDispatch();
-  const { allTransactions, isLoading, isError } = useAdmin();
+import { Table, TableHead, TableRow } from './AdminTransactionList.styled';
 
-  useEffect(() => {
-    dispatch(getAllTransactions());
-  }, [dispatch]);
+export const AdminTransactionList = ({ allTransactions }) => {
+  const { isLoading, isError } = useAdmin();
 
   return (
     <Table>
@@ -25,6 +19,7 @@ export const AdminTransactionList = () => {
           <TableHead>Approve</TableHead>
         </TableRow>
       </thead>
+
       <tbody>
         {isLoading && <p>Loading...</p>}
         {!isLoading &&

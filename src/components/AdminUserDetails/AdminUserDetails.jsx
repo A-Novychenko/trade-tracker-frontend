@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -9,12 +10,31 @@ import {
   Button,
   TextField,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+
 import {
   deleteUser,
   getUserById,
   updatePercentage,
 } from '../../redux/admin/adminOperation';
+
+import { getFormattedDate } from '../../utils/getFormattedDate';
+
+import { AiOutlineCheck } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
+
+import {
+  ImgWrapper,
+  CardWrapper,
+  ValueWrap,
+  ListItem,
+  Image,
+  EditBtn,
+  DelBtn,
+  TransactionList,
+  TransactionItem,
+  CardContainer,
+  TitleList,
+} from './AdminUserDetails.styled';
 
 export const AdminUserDetails = () => {
   const { id } = useParams();
@@ -23,6 +43,7 @@ export const AdminUserDetails = () => {
   const [percentage, setPercentage] = useState('');
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
+  console.log('user', user);
 
   useEffect(() => {
     const getUser = async id => {
@@ -66,58 +87,102 @@ export const AdminUserDetails = () => {
       console.error('Error deleting user:', error);
     }
   };
+
+  const formattedDate = getFormattedDate(user?.createdAt);
+
   return (
     <div>
-      {user && (
-        <ul>
-          <li>
-            <img alt="user" src={`http:${user.avatarURL}`} />
-          </li>
-          <li>ID: {user?._id}</li>
-          <li>Name: {user?.name}</li>
-          <li>Email: {user?.email}</li>
-          <li>
-            <div>
-              <p>Percentage: {user?.investment?.percentage || 0}</p>
-              <button type="button" onClick={handleOpen}>
-                Edit
-              </button>
-            </div>
-          </li>
-          <li>Investment: {user?.investment?.investment || 0}</li>
-          <li>Registration Date: {user?.createdAt}</li>
-          <li>
-            <button type="button" onClick={() => handleDelete()}>
-              delete
-            </button>
-          </li>
-        </ul>
-      )}
-      {isOpen && (
-        <Dialog open={isOpen} onClose={handleClose}>
-          <DialogTitle>Edit user percentage</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Enter percentage"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={percentage}
-              onChange={handleInputChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleConfirm} color="primary">
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
-      )}
+      <CardContainer>
+        {user && (
+          <CardWrapper>
+            <ImgWrapper>
+              <Image alt="user" src={`http:${user.avatarURL}`} />
+            </ImgWrapper>
+            <ListItem>
+              ID: <ValueWrap>{user?._id}</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Name: <ValueWrap>{user?.name}</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Email: <ValueWrap>{user?.email}</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Percentage:{' '}
+              <ValueWrap>{user?.investment?.percentage || 0}%</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Investment: <ValueWrap>{user?.investment?.total || 0}</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Profit: <ValueWrap>{user?.investment?.profit || 0}</ValueWrap>
+            </ListItem>
+            <ListItem>
+              Registration Date:{' '}
+              <ValueWrap>{formattedDate || 'No date'}</ValueWrap>
+            </ListItem>
+
+            <EditBtn type="button" onClick={handleOpen}>
+              Edit user percentage
+            </EditBtn>
+            <DelBtn type="button" onClick={() => handleDelete()}>
+              Delete user
+            </DelBtn>
+          </CardWrapper>
+        )}
+        {isOpen && (
+          <Dialog open={isOpen} onClose={handleClose}>
+            <DialogTitle>Edit user percentage</DialogTitle>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Enter percentage"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={percentage}
+                onChange={handleInputChange}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleConfirm} color="primary">
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+        <TransactionList>
+          <TitleList>Transactions history</TitleList>
+          {user &&
+            user.transactions.map((transaction, idx) => {
+              const { _id, type, amount, approved, createdAt } = transaction;
+              const formattedDate = getFormattedDate(createdAt);
+              return (
+                <TransactionItem key={idx}>
+                  <p>{formattedDate}</p>
+                  <p>{_id}</p>
+                  <p>{type}</p>
+                  <p>{amount}</p>
+                  <p>
+                    {approved ? (
+                      <>
+                        Approved <AiOutlineCheck size={20} color="#07ff07" />
+                      </>
+                    ) : (
+                      <>
+                        Not approved <AiOutlineClose size={20} color="red" />
+                      </>
+                    )}
+                  </p>
+                </TransactionItem>
+              );
+            })}
+        </TransactionList>
+      </CardContainer>
     </div>
   );
 };
