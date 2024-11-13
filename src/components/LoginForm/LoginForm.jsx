@@ -37,7 +37,7 @@ export const LoginForm = () => {
       logIn({
         //SLAVA
         // email: 'admin@mail.com',
-        // email: 'novychenkoae@gmail.com',
+        email: 'novychenkoae@gmail.com',
         //
         //
         //SASHA

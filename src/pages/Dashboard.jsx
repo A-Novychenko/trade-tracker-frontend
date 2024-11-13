@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Typography } from '@mui/material';
@@ -9,7 +9,8 @@ import {
   addPayment,
   fetchPayments,
 } from '../redux/payments/paymentsOperations';
-import { usePayments } from '../hooks';
+import { getUserTransaction } from '../redux/user/userOperation';
+import { usePayments, useUser } from '../hooks';
 import { CustomerProfile } from 'components/CustomerProfile';
 import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
@@ -28,6 +29,11 @@ import { FeedbackForm } from 'components/FeedbackForm';
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
   const { payments } = usePayments();
+  const { withdrawTransactions, depositTransactions } = useUser();
+
+  useEffect(() => {
+    dispatch(getUserTransaction());
+  }, [dispatch]);
 
   const [open, setOpen] = useState(false);
 
@@ -67,8 +73,8 @@ export default function Dashboard({ handleIsSuchPayment }) {
             <p>Withdraw history</p>
           </TransactionListTitle>
           <TransactionListWrap style={{ display: 'flex', gap: '12px' }}>
-            <TransactionList />
-            <TransactionList />
+            <TransactionList transactions={depositTransactions} />
+            <TransactionList transactions={withdrawTransactions} />
           </TransactionListWrap>
         </OverviewContainer>
       </Container>

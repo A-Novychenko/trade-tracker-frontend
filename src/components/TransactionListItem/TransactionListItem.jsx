@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { TableRow, TableItem, DetailBtn } from './TransactionListItem.styled';
 
 export const TransactionListItem = ({ data }) => {
-  console.log(data);
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <TableRow>
       <TableItem>17.05.2023</TableItem>

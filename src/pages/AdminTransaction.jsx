@@ -1,45 +1,53 @@
 import { AdminTransactionList } from 'components/AdminTransactionList';
 import { TransactionFilterPanel } from 'components/TransactionFilterPanel';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllTransactions } from '../redux/admin/adminOperation';
 import { useAdmin } from '../hooks/index';
 
 export const AdminTransaction = () => {
   const [filter, setFilter] = useState('All');
-
-  const dispatch = useDispatch();
+  const [searchId, setSearchId] = useState('');
   const { allTransactions, isLoading, isError } = useAdmin();
+  const dispatch = useDispatch();
 
   const handleFilterChange = newFilter => {
     setFilter(newFilter);
+  };
+
+  const handleSearchChange = event => {
+    setSearchId(event.target.value);
   };
 
   useEffect(() => {
     dispatch(getAllTransactions());
   }, [dispatch]);
 
-  const filteredTransactions = useCallback(() => {
+  const filteredTransactions = useMemo(() => {
     return allTransactions.filter(transaction => {
-      switch (filter) {
-        case 'Deposit':
-          return transaction.type === 'deposit';
-        case 'Withdraw':
-          return transaction.type === 'withdraw';
-        default:
-          return transaction;
-      }
+      const matchesFilter =
+        filter === 'All' || transaction.type === filter.toLowerCase();
+      const matchesSearch = searchId
+        ? transaction._id.includes(searchId)
+        : true;
+      return matchesFilter && matchesSearch;
     });
-  }, [allTransactions, filter]);
-
-  const transactions = filteredTransactions();
+  }, [allTransactions, filter, searchId]);
 
   return (
     <div>
       <h1>Transactions</h1>
-      <TransactionFilterPanel onFilterChange={handleFilterChange} />
-      <AdminTransactionList allTransactions={transactions} />
+      <div style={{ display: 'flex' }}>
+        <TransactionFilterPanel onFilterChange={handleFilterChange} />
+        <input
+          type="text"
+          placeholder="Search by ID"
+          value={searchId}
+          onChange={handleSearchChange}
+        />
+      </div>
+      <AdminTransactionList allTransactions={filteredTransactions} />
     </div>
   );
 };
