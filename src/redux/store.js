@@ -16,6 +16,7 @@ import { authReducer } from './auth/authSlice';
 import { paymentsReducer } from './payments/paymentsSlice';
 import { adminReducer } from './admin/adminSlice';
 import { langReducer } from './lang/langSlice';
+import { userReducer } from './user/userSlice';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 
@@ -35,6 +36,7 @@ export const store = configureStore({
     lang: persistReducer(langPersistConfig, langReducer),
     payments: paymentsReducer,
     admin: adminReducer,
+    user: userReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
