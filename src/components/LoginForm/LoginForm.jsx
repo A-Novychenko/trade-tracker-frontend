@@ -42,7 +42,7 @@ export const LoginForm = () => {
         //
         //SASHA
         // email: 'adm@mail.com',
-        // email: 'nmmassagekiev@gmail.com',
+        email: 'nmmassagekiev@gmail.com',
         //
         //
         password: 'Novik77',

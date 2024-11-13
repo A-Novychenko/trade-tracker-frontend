@@ -24,7 +24,7 @@ import {
   TransactionListWrap,
 } from './Dashboard.styled';
 import { UserPayment } from 'components/UserPayment';
-import { FeedbackForm } from 'components/FeedbackForm';
+import { SupportModalForm } from 'components/SupportModalForm';
 
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
@@ -59,7 +59,9 @@ export default function Dashboard({ handleIsSuchPayment }) {
         <div>
           <CustomerProfile />
           <UserPayment />
-          <FeedbackForm />
+
+          <SupportModalForm />
+
           <DashboardBanner />
         </div>
         <OverviewContainer>
