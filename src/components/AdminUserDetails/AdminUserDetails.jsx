@@ -12,10 +12,14 @@ import {
 } from '@mui/material';
 
 import {
+  changeUserEmail,
   deleteUser,
   getUserById,
   updatePercentage,
+  changeUserPassword,
 } from '../../redux/admin/adminOperation';
+
+import { useLang } from '../../hooks';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
 
@@ -34,16 +38,25 @@ import {
   TransactionItem,
   CardContainer,
   TitleList,
+  ChangeMailInput,
+  ChangePassBtn,
 } from './AdminUserDetails.styled';
+import { ModalForm } from 'components/ModalForm';
 
 export const AdminUserDetails = () => {
   const { id } = useParams();
 
+  const { defaultLang } = useLang();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMailModal, setIsOpenMailModal] = useState(false);
+  const [isOpenPassModal, setIsOpenPassModal] = useState(false);
   const [percentage, setPercentage] = useState('');
-  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
-  console.log('user', user);
+  const [newEmail, setNewEmail] = useState('');
+  const [newPass, setNewPass] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUser = async id => {
@@ -61,6 +74,10 @@ export const AdminUserDetails = () => {
       getUser(id);
     }
   }, [id, dispatch, isOpen]);
+
+  const toggleOpenMailModal = () => setIsOpenMailModal(prev => !prev);
+
+  const toggleOpenPassModal = () => setIsOpenPassModal(prev => !prev);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -88,6 +105,29 @@ export const AdminUserDetails = () => {
     }
   };
 
+  const handleChangeEmailSubmit = evt => {
+    evt.preventDefault();
+    dispatch(changeUserEmail({ id, email: newEmail }));
+    setNewEmail('');
+    toggleOpenMailModal();
+  };
+
+  const handleChangeEmail = evt => {
+    setNewEmail(evt.target.value.trim());
+  };
+
+  const handleChangePasswordSubmit = evt => {
+    evt.preventDefault();
+    console.log('newPassword: ' + newPass);
+    dispatch(changeUserPassword({ id, password: newPass }));
+    setNewPass('');
+    toggleOpenPassModal();
+  };
+
+  const handleChangePass = evt => {
+    setNewPass(evt.target.value.trim());
+  };
+
   const formattedDate = getFormattedDate(user?.createdAt);
 
   return (
@@ -104,8 +144,17 @@ export const AdminUserDetails = () => {
             <ListItem>
               Name: <ValueWrap>{user?.name}</ValueWrap>
             </ListItem>
-            <ListItem>
-              Email: <ValueWrap>{user?.email}</ValueWrap>
+            <ListItem style={{ display: 'block' }}>
+              <div style={{ display: 'flex' }}>
+                Email: <ValueWrap>{user?.email}</ValueWrap>
+              </div>
+              <EditBtn
+                type="button"
+                style={{ marginTop: '20px' }}
+                onClick={() => toggleOpenMailModal()}
+              >
+                {defaultLang ? 'Изменить почту' : 'Change email'}
+              </EditBtn>
             </ListItem>
             <ListItem>
               Percentage:{' '}
@@ -123,10 +172,17 @@ export const AdminUserDetails = () => {
             </ListItem>
 
             <EditBtn type="button" onClick={handleOpen}>
-              Edit user percentage
+              {defaultLang
+                ? 'Изменить процент пользователя'
+                : 'Edit user percentage'}
             </EditBtn>
+            <ChangePassBtn type="button" onClick={() => toggleOpenPassModal()}>
+              {defaultLang
+                ? 'Изменить пароль пользователя'
+                : 'Change user password'}
+            </ChangePassBtn>
             <DelBtn type="button" onClick={() => handleDelete()}>
-              Delete user
+              {defaultLang ? 'Удалить пользователя' : 'Delete user'}
             </DelBtn>
           </CardWrapper>
         )}
@@ -154,6 +210,34 @@ export const AdminUserDetails = () => {
               </Button>
             </DialogActions>
           </Dialog>
+        )}
+        {isOpenMailModal && (
+          <ModalForm
+            text={'Enter new user email'}
+            title={'Change user email'}
+            open={isOpenMailModal}
+            handleClose={toggleOpenMailModal}
+            handleSubmit={handleChangeEmailSubmit}
+          >
+            {<ChangeMailInput value={newEmail} onChange={handleChangeEmail} />}
+          </ModalForm>
+        )}
+        {isOpenPassModal && (
+          <ModalForm
+            text={
+              defaultLang
+                ? 'Введите новый пароль юзера'
+                : 'Enter new user password'
+            }
+            title={
+              defaultLang ? 'Изменить пароль пользователя' : 'Change user email'
+            }
+            open={isOpenPassModal}
+            handleClose={toggleOpenPassModal}
+            handleSubmit={handleChangePasswordSubmit}
+          >
+            {<ChangeMailInput value={newPass} onChange={handleChangePass} />}
+          </ModalForm>
         )}
         <TransactionList>
           <TitleList>Transactions history</TitleList>

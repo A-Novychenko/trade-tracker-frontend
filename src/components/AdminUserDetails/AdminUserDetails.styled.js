@@ -60,6 +60,7 @@ export const EditBtn = styled.button`
   cursor: pointer;
   border-radius: 12px;
   color: #060872;
+  font-size: 15px;
   transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
 
   &:hover,
@@ -78,6 +79,7 @@ export const DelBtn = styled.button`
   cursor: pointer;
   border-radius: 12px;
   color: #fff;
+  font-size: 15px;
   transition: background-color 300ms ease-in-out;
 
   &:hover,
@@ -134,4 +136,36 @@ export const TransactionItem = styled.li`
 
 export const TitleList = styled.h3`
   color: #ffffffa6;
+`;
+
+export const ChangeMailInput = styled.input`
+  width: 300px;
+  padding: 6px 12px;
+  font-size: 18px;
+  outline: transparent;
+  transition: border-color 300ms ease-in-out;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: #06f528;
+  }
+`;
+
+export const ChangePassBtn = styled.button`
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 15px;
+  background-color: #cc7affd4;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  color: #fff;
+  transition: background-color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: #03149f;
+  }
 `;
