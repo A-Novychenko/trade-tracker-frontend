@@ -10,8 +10,11 @@ import {
 import { useState } from 'react';
 
 import { IoMdClose } from 'react-icons/io';
+import { useLang } from 'hooks';
 
 export const AdminDashboard = () => {
+  const { defaultLang } = useLang();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -28,13 +31,13 @@ export const AdminDashboard = () => {
           <IoMdClose size={24} />
         </CloseBtn>
         <CustomLink to="adminpanel" style={{ color: '#fff' }}>
-          Dashboard
+          {defaultLang ? 'Меню' : 'Dashboard'}
         </CustomLink>
         <CustomLink to="users" style={{ color: '#fff' }}>
-          Users
+          {defaultLang ? 'Пользователи' : 'Users'}
         </CustomLink>
         <CustomLink to="transactions" style={{ color: '#fff' }}>
-          Transaction
+          {defaultLang ? 'Транзакции' : 'Transactions'}
         </CustomLink>
       </Sidebar>
       <div style={{ flex: 1, padding: '20px' }}>
