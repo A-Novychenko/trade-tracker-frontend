@@ -6,6 +6,8 @@ import {
   confirmTransaction,
   updatePercentage,
   deleteUser,
+  changeUserEmail,
+  changeUserPassword,
 } from './adminOperation';
 
 const initialState = {
@@ -93,6 +95,32 @@ const adminSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(changeUserEmail.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(changeUserEmail.fulfilled, (state, { payload }) => {
+        const userId = payload.id;
+        state.users = state.users.map(user =>
+          user._id === userId ? { ...user, email } : user
+        );
+        state.isLoading = false;
+      })
+      .addCase(changeUserEmail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(changeUserPassword.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(changeUserPassword.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(changeUserPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

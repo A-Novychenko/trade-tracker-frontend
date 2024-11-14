@@ -25,6 +25,7 @@ import {
 } from './Dashboard.styled';
 import { UserPayment } from 'components/UserPayment';
 import { SupportModalForm } from 'components/SupportModalForm';
+import { UserChangePassForm } from 'components/UserChangePassForm/UserChangePassForm';
 
 export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
@@ -61,6 +62,8 @@ export default function Dashboard({ handleIsSuchPayment }) {
           <UserPayment />
 
           <SupportModalForm />
+
+          <UserChangePassForm />
 
           <DashboardBanner />
         </div>

@@ -14,3 +14,16 @@ export const getUserTransaction = createAsyncThunk(
     }
   }
 );
+
+export const userChangePassword = createAsyncThunk(
+  'user/userChangePassword',
+  async (password, { rejectWithValue }) => {
+    try {
+      const response = await serverAPI.patch('/users/password', { password });
+      console.log('resp', response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

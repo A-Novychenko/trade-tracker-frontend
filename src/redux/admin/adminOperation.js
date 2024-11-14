@@ -81,3 +81,33 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
+
+export const changeUserEmail = createAsyncThunk(
+  'admin/changeUserEmail',
+  async ({ id, email }, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.patch(`/admin/email/${id}`, {
+        email,
+      });
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const changeUserPassword = createAsyncThunk(
+  'admin/changeUserPassword',
+  async ({ id, password }, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.patch(`/admin/password/${id}`, {
+        password,
+      });
+      console.log('data', data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
