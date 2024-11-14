@@ -15,6 +15,7 @@ import { AdminPanel } from 'pages/AdminPanel';
 import { AdminUsers } from 'pages/AdminUsers';
 import { AdminTransaction } from 'pages/AdminTransaction';
 import { AdminUserDetails } from './AdminUserDetails/AdminUserDetails';
+import { setCompleted, setError } from '@/payments/paymentsSlice';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -139,7 +140,10 @@ export const App = () => {
       <SnackError
         sx={{ width: '100%' }}
         isOpen={showSnackErr}
-        handleClose={() => setShowSnackErr(false)}
+        handleClose={() => {
+          setShowSnackErr(false);
+          dispatch(setError(null));
+        }}
         text={error || errorPayments}
       />
 
@@ -156,7 +160,10 @@ export const App = () => {
       <SnackSuccess
         sx={{ width: '100%' }}
         isOpen={showSnackCompleted}
-        handleClose={() => setShowSnackCompleted(false)}
+        handleClose={() => {
+          setShowSnackCompleted(false);
+          dispatch(setCompleted(null));
+        }}
       />
     </>
   );
