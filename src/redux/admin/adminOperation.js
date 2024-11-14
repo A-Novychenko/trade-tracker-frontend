@@ -111,3 +111,113 @@ export const changeUserPassword = createAsyncThunk(
     }
   }
 );
+
+export const getCondition = createAsyncThunk(
+  'admin/getCondition',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.get('/content/conditions');
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addCondition = createAsyncThunk(
+  'admin/addCondition',
+  async ({ text }, { rejectWithValue }) => {
+    try {
+      console.log('text', text);
+      const { data } = await serverAPI.post('/content/conditions', {
+        text: text,
+      });
+      console.log('condition', data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateCondition = createAsyncThunk(
+  'admin/updateCondition',
+  async ({ text }, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.patch('/content/conditions', {
+        text: text,
+      });
+      console.log('condition', data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteCondition = createAsyncThunk(
+  'admin/deleteCondition',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.delete('/content/conditions');
+      console.log('del', data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getWallet = createAsyncThunk(
+  'admin/getWallet',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.get('/content/wallet');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addWallet = createAsyncThunk(
+  'admin/addWallet',
+  async ({ text }, { rejectWithValue }) => {
+    try {
+      console.log('wallet', text);
+      const { data } = await serverAPI.post('/content/wallet', {
+        text: text,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateWallet = createAsyncThunk(
+  'admin/updateWallet',
+  async ({ text }, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.patch('/content/wallet', {
+        text: text,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteWallet = createAsyncThunk(
+  'admin/deleteWallet',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await serverAPI.delete('/content/wallet');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

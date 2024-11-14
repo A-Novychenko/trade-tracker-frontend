@@ -36,13 +36,13 @@ export const LoginForm = () => {
     dispatch(
       logIn({
         //SLAVA
-        // email: 'admin@mail.com',
+        email: 'admin@mail.com',
         // email: 'novychenkoae@gmail.com',
         //
         //
         //SASHA
         // email: 'adm@mail.com',
-        email: 'nmmassagekiev@gmail.com',
+        // email: 'nmmassagekiev@gmail.com',
         //
         //
         password: 'Novik77',

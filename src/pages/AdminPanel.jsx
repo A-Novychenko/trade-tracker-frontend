@@ -1,10 +1,15 @@
+import { AdminConditionsControl } from 'components/AdminConditionsControl';
+import { AdminWalletControl } from 'components/AdminWalletControl';
+import { useLang } from 'hooks';
+
 export const AdminPanel = () => {
+  const { defaultLang } = useLang();
+
   return (
     <div>
-      <h1>AdminPanel</h1>
-      <p style={{ fontSize: '22px', fontWeight: '800' }}>
-        Any metrics and data what need Administrator. If you think what i mind
-      </p>
+      <h2>{defaultLang ? 'Панель администратора' : 'Admin control panel'}</h2>
+      <AdminConditionsControl />
+      <AdminWalletControl />
     </div>
   );
 };
