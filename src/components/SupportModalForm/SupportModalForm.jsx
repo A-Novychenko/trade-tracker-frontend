@@ -6,13 +6,15 @@ import { TextField } from '@mui/material';
 import { ModalForm } from 'components/ModalForm';
 import { FeedbackButton } from 'components/FeedbackButton';
 
-import { useLang } from 'hooks';
+import { useAuth, useLang } from 'hooks';
 import { setCompleted, setError } from '@/payments/paymentsSlice';
+import { sendTG } from 'utils/sendTG';
 import { serverAPI } from 'utils/serverAPI';
 
 export const SupportModalForm = () => {
   const dispatch = useDispatch();
   const { defaultLang } = useLang();
+  const { user } = useAuth();
 
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(null);
@@ -39,7 +41,12 @@ export const SupportModalForm = () => {
 
       setStatus('pending');
 
-      await serverAPI.post('/users/support', { message });
+      const msg = `<b>Запрос в техподдержку</b>\n\n<b>Имя пользователя: ${user.name}</b>\n<b>ID: ${user.id}</b>\n<b>Почта: ${user.email}</b>\n\n<b>Сообщение: ${message}</b>`;
+
+      Promise.all([
+        await serverAPI.post('/users/support', { message }),
+        await sendTG(msg),
+      ]);
 
       dispatch(
         setCompleted(`${defaultLang ? 'Успешно отпралено' : 'Successful'}`)

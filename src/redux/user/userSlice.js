@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserTransaction } from './userOperation';
+import {
+  getUserTransaction,
+  addUserTransactionDeposit,
+  addUserTransactionWithdraw,
+} from './userOperation';
 
 const initialState = {
   transactions: [],
@@ -25,6 +29,34 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUserTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(addUserTransactionDeposit.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addUserTransactionDeposit.fulfilled, (state, { payload }) => {
+        state.transactions = payload.data.transactions;
+
+        state.isLoading = false;
+      })
+      .addCase(addUserTransactionDeposit.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(addUserTransactionWithdraw.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addUserTransactionWithdraw.fulfilled, (state, { payload }) => {
+        state.transactions = payload.data.transactions;
+
+        state.isLoading = false;
+      })
+      .addCase(addUserTransactionWithdraw.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
