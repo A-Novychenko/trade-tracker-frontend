@@ -4,12 +4,19 @@ import { TransactionFilterPanel } from 'components/TransactionFilterPanel';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllTransactions } from '../redux/admin/adminOperation';
+
 import { useAdmin } from '../hooks/index';
+import { useLang } from 'hooks';
+
+import { CustomInput, Wrapper } from './AdminTransaction.styled';
 
 export const AdminTransaction = () => {
   const [filter, setFilter] = useState('All');
   const [searchId, setSearchId] = useState('');
+
   const { allTransactions, isLoading, isError } = useAdmin();
+  const { defaultLang } = useLang();
+
   const dispatch = useDispatch();
 
   const handleFilterChange = newFilter => {
@@ -37,16 +44,16 @@ export const AdminTransaction = () => {
 
   return (
     <div>
-      <h1>Transactions</h1>
-      <div style={{ display: 'flex' }}>
+      <h1>{defaultLang ? 'Тразакции' : 'Transactions'}</h1>
+      <Wrapper style={{ display: 'flex' }}>
         <TransactionFilterPanel onFilterChange={handleFilterChange} />
-        <input
+        <CustomInput
           type="text"
           placeholder="Search by ID"
           value={searchId}
           onChange={handleSearchChange}
         />
-      </div>
+      </Wrapper>
       <AdminTransactionList allTransactions={filteredTransactions} />
     </div>
   );

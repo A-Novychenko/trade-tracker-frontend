@@ -12,7 +12,14 @@ import {
 import { ModalForm } from 'components/ModalForm';
 
 import { TextField } from '@mui/material';
-import { Btn, BtnWrap, OptionWrap } from './AdminConditionsControl.styled';
+import {
+  Btn,
+  BtnWrap,
+  OptionWrap,
+  TextWrap,
+  Text,
+  Overview,
+} from './AdminConditionsControl.styled';
 
 export const AdminConditionsControl = () => {
   const { defaultLang } = useLang();
@@ -55,20 +62,20 @@ export const AdminConditionsControl = () => {
 
   return (
     <OptionWrap>
-      <div>
-        <p>
+      <TextWrap>
+        <Text>
           {defaultLang
             ? 'Текущие условия для вывода средств'
             : 'Current conditions for withdrawal of funds'}
-        </p>
-        <p>
+        </Text>
+        <Overview>
           {condition?.length <= 0
             ? defaultLang
               ? 'На данный момент не добавлены условия вывода'
               : 'No withdrawal conditions have been added at this time'
             : condition}
-        </p>
-      </div>
+        </Overview>
+      </TextWrap>
       <BtnWrap>
         <Btn type="button" onClick={() => toggleIsOpen('add')}>
           {defaultLang ? 'Добавить условия' : 'Add Condition'}

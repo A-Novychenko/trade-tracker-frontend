@@ -13,7 +13,14 @@ import { ModalForm } from 'components/ModalForm';
 
 import { TextField } from '@mui/material';
 
-import { Btn, BtnWrap, OptionWrap } from './AdminWalletControl.styled';
+import {
+  Btn,
+  BtnWrap,
+  OptionWrap,
+  TextWrap,
+  Text,
+  Overview,
+} from './AdminWalletControl.styled';
 
 export const AdminWalletControl = () => {
   const { defaultLang } = useLang();
@@ -56,16 +63,18 @@ export const AdminWalletControl = () => {
 
   return (
     <OptionWrap>
-      <div>
-        <p>{defaultLang ? 'Номер текущего кошелька' : 'Current wallet'}</p>
-        <p>
+      <TextWrap>
+        <Text>
+          {defaultLang ? 'Номер текущего кошелька' : 'Current wallet'}
+        </Text>
+        <Overview>
           {wallet?.length <= 0
             ? defaultLang
               ? 'На данный момент не добавлен номер кошелька'
               : 'No have wallet at this time'
             : wallet}
-        </p>
-      </div>
+        </Overview>
+      </TextWrap>
       <BtnWrap>
         <Btn type="button" onClick={() => toggleIsOpen('add')}>
           {defaultLang ? 'Добавить кошелек' : 'Add wallet'}

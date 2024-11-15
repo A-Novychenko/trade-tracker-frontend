@@ -21,7 +21,11 @@ export const AdminTransactionList = ({ allTransactions }) => {
       </thead>
 
       <tbody>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && (
+          <TableRow>
+            <TableHead>Loading...</TableHead>
+          </TableRow>
+        )}
         {!isLoading &&
           allTransactions.map((transaction, idx) => {
             return (

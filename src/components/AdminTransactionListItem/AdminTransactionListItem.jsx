@@ -43,6 +43,8 @@ export const AdminTransactionListItem = ({ transaction }) => {
 
   const date = getFormattedDate(createdAt);
 
+  console.log(createdAt);
+
   return (
     <TableRow>
       {/* <TableItem>{date}</TableItem> */}

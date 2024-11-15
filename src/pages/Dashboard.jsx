@@ -10,7 +10,7 @@ import {
   fetchPayments,
 } from '../redux/payments/paymentsOperations';
 import { getUserTransaction } from '../redux/user/userOperation';
-import { usePayments, useUser } from '../hooks';
+import { useLang, usePayments, useUser } from '../hooks';
 import { CustomerProfile } from 'components/CustomerProfile';
 import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
@@ -31,6 +31,7 @@ export default function Dashboard({ handleIsSuchPayment }) {
   const dispatch = useDispatch();
   const { payments } = usePayments();
   const { withdrawTransactions, depositTransactions } = useUser();
+  const { defaultLang } = useLang();
 
   useEffect(() => {
     dispatch(getUserTransaction());
@@ -71,11 +72,11 @@ export default function Dashboard({ handleIsSuchPayment }) {
           <InvestmentOverview />
           <InvestmentConditions />
           <h3 style={{ textAlign: 'center', color: '#fff' }}>
-            Transaction History
+            {defaultLang ? 'История тразакций' : 'Transaction History'}
           </h3>
           <TransactionListTitle>
-            <p>Deposit history</p>
-            <p>Withdraw history</p>
+            <p>{defaultLang ? 'История депозитов' : 'Deposit history'}</p>
+            <p>{defaultLang ? 'История выводов' : 'Withdraw history'}</p>
           </TransactionListTitle>
           <TransactionListWrap style={{ display: 'flex', gap: '12px' }}>
             <TransactionList transactions={depositTransactions} />
