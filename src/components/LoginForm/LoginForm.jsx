@@ -32,24 +32,22 @@ export const LoginForm = () => {
       password: formData.get('password'),
     };
 
-    // dispatch(logIn(data));
-    dispatch(
-      logIn({
-        //SLAVA
-        email: 'admin@mail.com',
-        // email: 'novychenkoae@gmail.com',
-        //
-        //
-        //SASHA
-        // email: 'adm@mail.com',
-        // email: 'nmmassagekiev@gmail.com',
-        //
-        //
-        // password: 'Novik77',
-        email: data.email,
-        password: data.password,
-      })
-    );
+    dispatch(logIn(data));
+    // dispatch(
+    //   logIn({
+    //     //SLAVA
+    //     // email: 'admin@mail.com',
+    //     // email: 'novychenkoae@gmail.com',
+    //     //
+    //     //
+    //     //SASHA
+    //     // email: 'adm@mail.com',
+    //     // email: 'nmmassagekiev@gmail.com',
+    //     //
+    //     //
+    //     password: 'Novik77',
+    //   })
+    // );
 
     e.target.reset();
   };
