@@ -14,9 +14,9 @@ export const AdminUserListItem = ({ user }) => {
       <TableItem>{investment?.percentage || 0}</TableItem>
       <TableItem>{date}</TableItem>
       <TableItem>{id}</TableItem>
-      <TableRow>
+      <TableItem>
         <CustomLink to={`/dashboard/users/${id}`}>More info</CustomLink>
-      </TableRow>
+      </TableItem>
     </TableRow>
   );
 };

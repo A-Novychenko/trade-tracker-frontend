@@ -40,7 +40,7 @@ export const AdminDashboard = () => {
           {defaultLang ? 'Транзакции' : 'Transactions'}
         </CustomLink>
       </Sidebar>
-      <div style={{ flex: 1, padding: '20px' }}>
+      <div style={{ flex: 1, padding: '20px', width: '100%' }}>
         <Outlet />
       </div>
     </div>
