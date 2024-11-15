@@ -45,7 +45,9 @@ export const LoginForm = () => {
         // email: 'nmmassagekiev@gmail.com',
         //
         //
-        password: 'Novik77',
+        // password: 'Novik77',
+        email: data.email,
+        password: data.password,
       })
     );
 
