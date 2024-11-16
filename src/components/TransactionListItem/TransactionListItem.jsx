@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import { getFormattedDate } from 'utils/getFormattedDate';
 import { TableRow, TableItem, DetailBtn } from './TransactionListItem.styled';
 import { useLang } from 'hooks';
 // import { Modal } from '@mui/material';
@@ -15,7 +16,8 @@ export const TransactionListItem = ({ data }) => {
   return (
     <>
       <TableRow>
-        <TableItem>No date</TableItem>
+        {/* <TableItem>No date</TableItem> */}
+        <TableItem>{getFormattedDate(data.createdAt)}</TableItem>
         <TableItem>{data.type}</TableItem>
         <TableItem>{data.amount}</TableItem>
 
