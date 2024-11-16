@@ -4,6 +4,7 @@ export const selectUserAllTransactions = state => state.user.transactions;
 export const selectUserIsLoading = state => state.user.isLoading;
 export const selectUserIsError = state => state.user.error;
 export const selectConditions = state => state.user.conditions;
+export const selectWallet = state => state.user.wallet;
 
 export const selectWithdrawTransactions = createSelector(
   [selectUserAllTransactions],
@@ -24,4 +25,5 @@ export const selectUserSelectors = {
   selectUserIsLoading,
   selectUserIsError,
   selectConditions,
+  selectWallet,
 };

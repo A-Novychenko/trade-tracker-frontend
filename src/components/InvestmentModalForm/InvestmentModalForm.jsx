@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { TextField, Typography, Button } from '@mui/material';
 import { toast } from 'react-toastify';
 
 import { ModalForm } from 'components/ModalForm';
 
-import { useAuth, useLang } from 'hooks';
+import { useAuth, useLang, useUser } from 'hooks';
 
 import { useDispatch } from 'react-redux';
 import { setCompleted, setError } from '@/payments/paymentsSlice';
 import { addUserTransactionDeposit } from '@/user/userOperation';
 
 import { InvestBtn, Wrap } from './InvestmentModalForm.styled';
+import { getWallet } from '../../redux/user/userOperation';
 
 const WALLET = '0xce31c05d085116d4db66385f224aca8c98de7490';
 const TEXT = `ВАЖНО 
@@ -39,9 +40,14 @@ export const InvestmentModalForm = () => {
 
   const { defaultLang } = useLang();
   const { user } = useAuth();
+  const { wallet } = useUser();
 
   const [openModal, setOpenModal] = useState(false);
   const [status, setStatus] = useState(false);
+
+  useEffect(() => {
+    dispatch(getWallet());
+  }, [dispatch]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -152,7 +158,7 @@ export const InvestmentModalForm = () => {
             alignContent: 'center',
           }}
         >
-          <Typography sx={{ mb: 4 }}>{WALLET}</Typography>
+          <Typography sx={{ mb: 4 }}>{wallet}</Typography>
           <Button
             variant="contained"
             onClick={handleCopyWallet}

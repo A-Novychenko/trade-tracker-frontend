@@ -88,3 +88,17 @@ export const getConditions = createAsyncThunk(
     }
   }
 );
+
+export const getWallet = createAsyncThunk(
+  'user/getWallet',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await serverAPI.get('/content/wallet');
+
+      return response.data;
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);

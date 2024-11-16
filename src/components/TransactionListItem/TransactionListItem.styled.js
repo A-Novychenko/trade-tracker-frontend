@@ -16,7 +16,7 @@ export const TableRow = styled.tr`
 
 export const TableItem = styled.td`
   text-align: center;
-  padding: 4px 8px;
+  padding: 10px 8px;
 
   &::before {
     content: '';

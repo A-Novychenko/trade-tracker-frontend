@@ -94,7 +94,7 @@ export const ModalForm = ({
             }}
             type="submit"
           >
-            {defaultLang ? 'Отправить' : 'Send'}
+            {defaultLang ? 'Отправлено' : 'Send'}
           </Button>
         </DialogActions>
       </Dialog>
