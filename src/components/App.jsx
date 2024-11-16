@@ -13,6 +13,7 @@ import { useAuth, usePayments } from '../hooks';
 import { AdminDashboard } from 'pages/AdminDashboard';
 import { AdminPanel } from 'pages/AdminPanel';
 import { AdminUsers } from 'pages/AdminUsers';
+import { AdminUsersArchived } from 'pages/AdminUsersArchived';
 import { AdminTransaction } from 'pages/AdminTransaction';
 import { AdminUserDetails } from './AdminUserDetails/AdminUserDetails';
 import { setCompleted, setError } from '@/payments/paymentsSlice';
@@ -128,6 +129,7 @@ export const App = () => {
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="users/:id" element={<AdminUserDetails />} />
                 <Route path="transactions" element={<AdminTransaction />} />
+                <Route path="archived-users" element={<AdminUsersArchived />} />
               </>
             )}
             {!isAdmin && (
