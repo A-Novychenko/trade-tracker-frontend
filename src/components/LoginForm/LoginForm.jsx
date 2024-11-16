@@ -16,6 +16,8 @@ import { ResetPasswordModal } from 'components/ResetPasswordModal';
 
 import { logIn } from '../../redux/auth/authOperations';
 import { useLang } from 'hooks';
+import { setError } from '@/payments/paymentsSlice';
+import { toast } from 'react-toastify';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -30,9 +32,45 @@ export const LoginForm = () => {
 
     const formData = new FormData(e.target);
 
+    const emailFormatted =
+      formData.get('email') && typeof formData.get('email') === 'string'
+        ? formData.get('email').trim().toLowerCase()
+        : '';
+
+    const passwordFormatted =
+      formData.get('password') && typeof formData.get('password') === 'string'
+        ? formData.get('password').trim()
+        : '';
+
+    const isSpacesEmail = emailFormatted.includes(' ');
+
+    if (isSpacesEmail) {
+      toast.error(
+        defaultLang
+          ? 'Почта не может быть с пробелами!'
+          : 'Enter your password!'
+      );
+
+      return;
+    }
+
+    if (emailFormatted.length < 1) {
+      toast.error(defaultLang ? 'Введите почту!' : 'Enter your email!');
+
+      return;
+    }
+
+    if (passwordFormatted.length < 1) {
+      toast.error(
+        defaultLang ? 'Введите пароль!' : 'Email cannot contain spaces!'
+      );
+
+      return;
+    }
+
     const data = {
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: emailFormatted,
+      password: passwordFormatted,
     };
 
     dispatch(logIn(data));
@@ -107,10 +145,11 @@ export const LoginForm = () => {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               // onChange={handleChangeEmail}
               error={isErrorMail}
-              helperText={'Domain must match "mail.com"'}
+              helperText={'Email'}
               sx={{
                 '& .MuiInputBase-input': { color: 'white' },
                 '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
@@ -142,7 +181,7 @@ export const LoginForm = () => {
               autoComplete="current-password"
               // onChange={handleChangePassword}
               error={isErrorPass}
-              helperText={'Password must be more than 7 characters'}
+              helperText={'Password'}
               sx={{
                 '& .MuiInputBase-input': { color: 'white' },
                 '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },

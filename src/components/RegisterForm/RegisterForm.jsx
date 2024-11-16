@@ -15,6 +15,7 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 import { register } from '../../redux/auth/authOperations';
 import { useLang } from 'hooks';
+import { toast } from 'react-toastify';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,52 @@ export const RegisterForm = () => {
 
     const formData = new FormData(e.target);
 
+    const nameFormatted =
+      formData.get('name') && typeof formData.get('name') === 'string'
+        ? formData.get('name').trim().toLowerCase()
+        : '';
+
+    const emailFormatted =
+      formData.get('email') && typeof formData.get('email') === 'string'
+        ? formData.get('email').trim().toLowerCase()
+        : '';
+
+    const passwordFormatted =
+      formData.get('password') && typeof formData.get('password') === 'string'
+        ? formData.get('password').trim()
+        : '';
+
+    const isSpacesEmail = emailFormatted.includes(' ');
+
+    if (isSpacesEmail) {
+      toast.error(
+        defaultLang
+          ? 'Почта не может быть с пробелами!'
+          : 'Email cannot contain spaces!'
+      );
+    }
+
+    if (nameFormatted.length < 1) {
+      toast.error(defaultLang ? 'Введите имя!' : 'Enter your name!');
+
+      return;
+    }
+
+    if (emailFormatted.length < 1) {
+      toast.error(defaultLang ? 'Введите почту!' : 'Enter your email!');
+
+      return;
+    }
+
+    if (passwordFormatted.length < 8) {
+      toast.error(defaultLang ? 'Введите пароль!' : 'Enter your password!');
+
+      return;
+    }
+
     const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
+      name: formData.get('name')?.trim(),
+      email: emailFormatted,
       password: formData.get('password'),
     };
 
@@ -53,19 +97,19 @@ export const RegisterForm = () => {
     }
   };
 
-  const handleChangeEmail = e => {
-    const validMail = e.target.value.includes('mail.com');
-    const minLength = e.target.value.length > 9;
+  // const handleChangeEmail = e => {
+  //   // const validMail = e.target.value.includes('mail.com');
+  //   const minLength = e.target.value.length > 9;
 
-    if (validMail && minLength) {
-      setIsErrorMail(null);
-    } else {
-      setIsErrorMail(true);
-    }
-  };
+  //   if (validMail && minLength) {
+  //     setIsErrorMail(null);
+  //   } else {
+  //     setIsErrorMail(true);
+  //   }
+  // };
 
   const handleChangePassword = e => {
-    const isValidPassword = e.target.value.length > 6;
+    const isValidPassword = e.target.value.length > 7;
 
     if (isValidPassword) {
       setIsErrorPass(null);
@@ -139,9 +183,9 @@ export const RegisterForm = () => {
               label="E-mail"
               name="email"
               type="email"
-              onChange={handleChangeEmail}
+              // onChange={handleChangeEmail}
               error={isErrorMail}
-              helperText={'Domain must match "mail.com"'}
+              helperText={'Email'}
               sx={{
                 '& .MuiInputBase-input': { color: 'white' },
                 '& .MuiInputLabel-root': { color: 'rgb(255 255 255 / 60%);' },
