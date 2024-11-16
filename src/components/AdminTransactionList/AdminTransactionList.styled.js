@@ -21,7 +21,7 @@ export const Table = styled.table`
   border-radius: 8px;
   border-collapse: collapse;
 
-  @media (max-width: 767px) {
+  @media (max-width: 800px) {
     display: block;
     thead {
       display: none;
@@ -46,13 +46,13 @@ export const TableHead = styled.th`
   padding: 8px 16px;
   text-align: center;
 
-  @media (max-width: 767px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `;
 
 export const TableRow = styled.tr`
-  @media (max-width: 767px) {
+  @media (max-width: 800px) {
     display: block;
     margin-bottom: 8px;
   }

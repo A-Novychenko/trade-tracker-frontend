@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { useLang } from 'hooks';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -19,6 +21,8 @@ export function ResetPasswordModal() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
+  const { defaultLang } = useLang();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,16 +64,19 @@ export function ResetPasswordModal() {
         }}
         onClick={handleClickOpen}
       >
-        Reset password
+        {defaultLang ? 'Скинуть пароль' : 'Reset password'}
       </Link>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ color: 'orangered' }}>Reset password</DialogTitle>
+        <DialogTitle sx={{ color: 'orangered' }}>
+          {defaultLang ? 'Скинуть пароль' : 'Reset password'}
+        </DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            To recover your password, please enter your email address here. We
-            will send you instructions to reset your password.
+            {defaultLang
+              ? 'Затем восстановите  пароль и введите  адрес электронной почты. Мы отправим вам инструкции, а затем сбросим действительный пароль.'
+              : 'To recover your password, please enter your email address here. We will send you instructions to reset your password'}
           </DialogContentText>
 
           <TextField
@@ -93,7 +100,7 @@ export function ResetPasswordModal() {
           <Button onClick={handleClose}>Cancel</Button>
 
           <Button type="button" sx={{ color: 'red' }} onClick={handleSubmit}>
-            Reset password
+            {defaultLang ? 'Скинуть пароль' : 'Reset password'}
           </Button>
         </DialogActions>
       </Dialog>

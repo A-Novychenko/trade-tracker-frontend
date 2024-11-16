@@ -15,9 +15,12 @@ import LoginIcon from '@mui/icons-material/Login';
 import { ResetPasswordModal } from 'components/ResetPasswordModal';
 
 import { logIn } from '../../redux/auth/authOperations';
+import { useLang } from 'hooks';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+
+  const { defaultLang } = useLang();
 
   const [isErrorMail, setIsErrorMail] = useState(null);
   const [isErrorPass, setIsErrorPass] = useState(null);
@@ -88,7 +91,7 @@ export const LoginForm = () => {
           </Avatar>
 
           <Typography component="h2" variant="h5">
-            Log in
+            {defaultLang ? 'Войти' : 'Log in'}
           </Typography>
 
           <Box
@@ -168,7 +171,7 @@ export const LoginForm = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
             >
-              Log in
+              {defaultLang ? 'Войти' : 'Log in'}
             </Button>
           </Box>
         </Box>

@@ -19,7 +19,7 @@ import {
   changeUserPassword,
 } from '../../redux/admin/adminOperation';
 
-import { useLang } from '../../hooks';
+import { useAdmin, useLang } from '../../hooks';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
 
@@ -47,6 +47,7 @@ export const AdminUserDetails = () => {
   const { id } = useParams();
 
   const { defaultLang } = useLang();
+  const { isError } = useAdmin();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMailModal, setIsOpenMailModal] = useState(false);
@@ -64,6 +65,7 @@ export const AdminUserDetails = () => {
         const resp = await dispatch(getUserById(id));
 
         const userData = resp.payload.data.user[0];
+
         setUser(userData);
       } catch (error) {
         console.error('Error fetching user:', error);
@@ -73,7 +75,7 @@ export const AdminUserDetails = () => {
     if (id) {
       getUser(id);
     }
-  }, [id, dispatch, isOpen]);
+  }, [id, dispatch]);
 
   const toggleOpenMailModal = () => setIsOpenMailModal(prev => !prev);
 
@@ -93,7 +95,12 @@ export const AdminUserDetails = () => {
   };
 
   const handleInputChange = event => {
-    setPercentage(event.target.value);
+    const value = Number(event.target.value);
+    if (isNaN(value)) {
+      return;
+    }
+
+    setPercentage(value);
   };
 
   const handleDelete = async () => {
@@ -108,6 +115,14 @@ export const AdminUserDetails = () => {
   const handleChangeEmailSubmit = evt => {
     evt.preventDefault();
     dispatch(changeUserEmail({ id, email: newEmail }));
+
+    if (!isError) {
+      setUser(pervState => ({
+        ...pervState,
+        email: newEmail,
+      }));
+    }
+
     setNewEmail('');
     toggleOpenMailModal();
   };

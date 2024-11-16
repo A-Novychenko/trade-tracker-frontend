@@ -1,22 +1,23 @@
 import { AdminTransactionListItem } from 'components/AdminTransactionListItem';
 
-import { useAdmin } from '../../hooks/index';
+import { useAdmin, useLang } from '../../hooks/index';
 
 import { Table, TableHead, TableRow } from './AdminTransactionList.styled';
 
 export const AdminTransactionList = ({ allTransactions }) => {
   const { isLoading, isError } = useAdmin();
+  const { defaultLang } = useLang();
 
   return (
     <Table>
       <thead>
         <TableRow>
           {/* <TableHead>Data</TableHead> */}
-          <TableHead>Owner</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Amount</TableHead>
+          <TableHead>{defaultLang ? 'Владелец' : 'Owner'}</TableHead>
+          <TableHead>{defaultLang ? 'Тип' : 'Type'}</TableHead>
+          <TableHead>{defaultLang ? 'Сумма' : 'Amount'}</TableHead>
           <TableHead>ID</TableHead>
-          <TableHead>Approve</TableHead>
+          <TableHead>{defaultLang ? 'Статус' : 'Status'}</TableHead>
         </TableRow>
       </thead>
 

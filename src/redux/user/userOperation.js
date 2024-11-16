@@ -8,6 +8,7 @@ export const getUserTransaction = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await serverAPI.get('/transactions');
+      console.log('resp trans', response);
 
       return response.data;
     } catch (error) {
@@ -60,7 +61,20 @@ export const userChangePassword = createAsyncThunk(
   async (password, { rejectWithValue }) => {
     try {
       const response = await serverAPI.patch('/users/password', { password });
-      console.log('resp', response);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getConditions = createAsyncThunk(
+  'user/getConditions',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await serverAPI.get('/content/conditions');
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

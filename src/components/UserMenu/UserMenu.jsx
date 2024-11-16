@@ -4,12 +4,13 @@ import { Box, Button, Typography } from '@mui/material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import { logOut } from '../../redux/auth/authOperations';
-import { useAuth } from '../../hooks';
+import { useAuth, useLang } from '../../hooks';
 import { CustomText } from './UserMenu.styled';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
+  const { defaultLang } = useLang();
 
   return (
     <Box
@@ -24,7 +25,9 @@ export const UserMenu = () => {
       <Box sx={{ display: 'flex' }}>
         <AccountBoxIcon sx={{ mr: 1 }} />
 
-        <CustomText>Welcome, {user.name}</CustomText>
+        <CustomText>
+          {defaultLang ? 'Привет' : 'Welcome'}, {user.name}
+        </CustomText>
       </Box>
 
       <Button
@@ -33,7 +36,7 @@ export const UserMenu = () => {
         variant="outline"
         onClick={() => dispatch(logOut())}
       >
-        Logout
+        {defaultLang ? 'Выйти' : 'Logout'}
       </Button>
     </Box>
   );

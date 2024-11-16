@@ -1,6 +1,9 @@
 import { Box, Typography } from '@mui/material';
 
+import { useLang } from 'hooks';
+
 export default function Home() {
+  const { defaultLang } = useLang();
   return (
     <div>
       <Typography
@@ -13,7 +16,7 @@ export default function Home() {
           textAlign: 'center',
         }}
       >
-        Welcome to the Trade Tracker!
+        {defaultLang ? 'Добро пожаловать' : 'Welcome to the Trade Tracker!'}
       </Typography>
 
       <Typography

@@ -23,7 +23,7 @@ export const CustomInput = styled.input`
     border-color: #00ffef;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1200px) {
     width: 400px;
   }
 `;

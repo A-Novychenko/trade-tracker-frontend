@@ -5,11 +5,11 @@ export const TableRow = styled.tr`
   font-size: 14px;
   background-color: rgb(60 62 75 / 74%);
 
-  &:nth-child(even) {
+  &:nth-of-type(even) {
     background-color: rgb(14 32 132 / 74%);
   }
 
-  &:hover td:first-child::before {
+  &:hover td:first-of-type::before {
     width: 5px;
   }
 `;

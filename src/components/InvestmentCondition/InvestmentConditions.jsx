@@ -1,15 +1,27 @@
+import { useLang, useUser } from 'hooks';
 import { Wrapper } from './InvestmentConditions.styled';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getConditions } from '../../redux/user/userOperation';
 
 export const InvestmentConditions = () => {
+  const { defaultLang } = useLang();
+  const { conditions } = useUser();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getConditions());
+  }, []);
+
   return (
     <Wrapper>
-      <strong>Terms of replenishment/withdrawal of funds</strong>
-      <p>
-        To enter funds, cryptocurrencies are supported with a minimum deposit of
-        ****, the processing time is up to 24 hours. Withdrawal is possible
-        after verification, with a minimum amount of ***, processing requests
-        takes up to 48 hours.
-      </p>
+      <strong>
+        {defaultLang
+          ? 'Условия ввода/вывода средств'
+          : 'Terms of replenishment/withdrawal of funds'}
+      </strong>
+      <p>{conditions?.length > 1 ? conditions : '1'}</p>
     </Wrapper>
   );
 };

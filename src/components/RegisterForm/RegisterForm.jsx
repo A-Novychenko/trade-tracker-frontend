@@ -14,11 +14,14 @@ import {
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 import { register } from '../../redux/auth/authOperations';
+import { useLang } from 'hooks';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const { defaultLang } = useLang();
 
   const [isErrorName, setIsErrorName] = useState(null);
   const [isErrorMail, setIsErrorMail] = useState(null);
@@ -89,7 +92,7 @@ export const RegisterForm = () => {
           </Avatar>
 
           <Typography component="h2" variant="h5">
-            Register
+            {defaultLang ? 'Регистрация' : 'Register'}
           </Typography>
 
           <Box
@@ -196,7 +199,7 @@ export const RegisterForm = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: 'orangered' }}
             >
-              Register
+              {defaultLang ? 'Регистрация' : 'Register'}
             </Button>
           </Box>
         </Box>
