@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { ThreeDots } from 'react-loader-spinner';
@@ -46,6 +46,8 @@ import {
   ChangePassBtn,
 } from './AdminUserDetails.styled';
 import { ModalForm } from 'components/ModalForm';
+import { ChangeAmountForm } from 'components/ChangeAmountForm';
+import { ChangeProfitForm } from 'components/ChangeProfitForm';
 
 export const AdminUserDetails = () => {
   const { id } = useParams();
@@ -190,24 +192,48 @@ export const AdminUserDetails = () => {
               </div>
               <EditBtn
                 type="button"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '20px', marginBottom: '10px' }}
                 onClick={() => toggleOpenMailModal()}
               >
                 {defaultLang ? 'Изменить почту' : 'Change email'}
               </EditBtn>
+
+              <ChangePassBtn
+                type="button"
+                onClick={() => toggleOpenPassModal()}
+              >
+                {defaultLang
+                  ? 'Изменить пароль пользователя'
+                  : 'Change user password'}
+              </ChangePassBtn>
             </ListItem>
+
             <ListItem>
               {defaultLang ? 'Процент' : 'Percentage:'}{' '}
               <ValueWrap>{user?.investment?.percentage || 0}%</ValueWrap>
             </ListItem>
+
             <ListItem>
               {defaultLang ? 'Инвестиции' : 'Investment:'}{' '}
-              <ValueWrap>{user?.investment?.total || 0}</ValueWrap>
+              <ValueWrap>{user?.investment?.investment || 0}</ValueWrap>
             </ListItem>
+
             <ListItem>
               {defaultLang ? 'Прибыль' : 'Profit:'}{' '}
-              <ValueWrap>{user?.investment?.profit || 0}</ValueWrap>
+              <ValueWrap>
+                {Math.round(user?.investment?.profit * 100) / 100 || 0}
+              </ValueWrap>
             </ListItem>
+
+            <ListItem>
+              {defaultLang ? 'Сумма с прибылью' : 'Total with profit:'}{' '}
+              <ValueWrap>
+                {(user?.investment?.total &&
+                  Math.round(user?.investment?.total * 100) / 100) ||
+                  0}
+              </ValueWrap>
+            </ListItem>
+
             <ListItem>
               {defaultLang ? 'Дата регестрации' : 'Registration Date:'}{' '}
               <ValueWrap>{formattedDate || 'No date'}</ValueWrap>
@@ -218,11 +244,25 @@ export const AdminUserDetails = () => {
                 ? 'Изменить процент пользователя'
                 : 'Edit user percentage'}
             </EditBtn>
-            <ChangePassBtn type="button" onClick={() => toggleOpenPassModal()}>
-              {defaultLang
-                ? 'Изменить пароль пользователя'
-                : 'Change user password'}
-            </ChangePassBtn>
+
+            <ChangeAmountForm
+              currentAmount={
+                user?.investment?.investment &&
+                Math.round(user?.investment?.investment * 100) / 100
+              }
+              id={user?._id}
+              setUser={setUser}
+            />
+
+            <ChangeProfitForm
+              currentProfit={
+                user?.investment?.profit &&
+                Math.round(user?.investment?.profit * 100) / 100
+              }
+              id={user?._id}
+              setUser={setUser}
+            />
+
             <DelBtn type="button" onClick={() => handleDelete()}>
               {defaultLang ? 'Удалить пользователя' : 'Delete user'}
             </DelBtn>
