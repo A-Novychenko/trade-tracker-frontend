@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import {
   getCondition,
-  addCondition,
   updateCondition,
   deleteCondition,
 } from '../../redux/admin/adminOperation';
@@ -27,14 +26,12 @@ export const AdminConditionsControl = () => {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [actionType, setActionType] = useState('add');
 
   useEffect(() => {
     dispatch(getCondition());
   }, []);
 
-  const toggleIsOpen = type => {
-    setActionType(type);
+  const toggleIsOpen = () => {
     setIsOpen(prev => !prev);
   };
 
@@ -48,11 +45,8 @@ export const AdminConditionsControl = () => {
     const formJson = Object.fromEntries(formData.entries());
     const text = formJson.text.trim();
 
-    if (actionType === 'add') {
-      dispatch(addCondition({ text }));
-    } else {
-      dispatch(updateCondition({ text }));
-    }
+    dispatch(updateCondition({ text }));
+
     toggleIsOpen();
   };
 
@@ -77,9 +71,6 @@ export const AdminConditionsControl = () => {
         </Overview>
       </TextWrap>
       <BtnWrap>
-        <Btn type="button" onClick={() => toggleIsOpen('add')}>
-          {defaultLang ? 'Добавить условия' : 'Add Condition'}
-        </Btn>
         <Btn type="button" onClick={() => toggleIsOpen('edit')}>
           {defaultLang ? 'Изменить  условия' : 'Edit Condition'}
         </Btn>
@@ -89,15 +80,7 @@ export const AdminConditionsControl = () => {
       </BtnWrap>
       {isOpen && (
         <ModalForm
-          text={
-            actionType === 'add'
-              ? defaultLang
-                ? 'Добавить условия'
-                : 'Add Condition'
-              : defaultLang
-              ? 'Изменить условия'
-              : 'Edit Condition'
-          }
+          text={defaultLang ? 'Изменить условия' : 'Edit Condition'}
           title={
             defaultLang ? 'Условия вывода средств' : 'Withdrawal conditions'
           }

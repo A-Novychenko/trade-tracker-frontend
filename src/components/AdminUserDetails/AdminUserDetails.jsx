@@ -23,6 +23,8 @@ import { useAdmin, useLang } from '../../hooks';
 
 import { getFormattedDate } from '../../utils/getFormattedDate';
 
+import { toast } from 'react-toastify';
+
 import { AiOutlineCheck } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -68,6 +70,7 @@ export const AdminUserDetails = () => {
 
         setUser(userData);
       } catch (error) {
+        toast.error('Ошибка получения данных');
         console.error('Error fetching user:', error);
       }
     };
@@ -106,8 +109,10 @@ export const AdminUserDetails = () => {
   const handleDelete = async () => {
     try {
       await dispatch(deleteUser(id)).unwrap();
+
       setUser(null);
     } catch (error) {
+      toast.error('Ошибка удаления');
       console.error('Error deleting user:', error);
     }
   };
@@ -133,7 +138,7 @@ export const AdminUserDetails = () => {
 
   const handleChangePasswordSubmit = evt => {
     evt.preventDefault();
-    console.log('newPassword: ' + newPass);
+
     dispatch(changeUserPassword({ id, password: newPass }));
     setNewPass('');
     toggleOpenPassModal();
@@ -157,11 +162,13 @@ export const AdminUserDetails = () => {
               ID: <ValueWrap>{user?._id}</ValueWrap>
             </ListItem>
             <ListItem>
-              Name: <ValueWrap>{user?.name}</ValueWrap>
+              {defaultLang ? 'Имя' : 'Name:'}{' '}
+              <ValueWrap>{user?.name}</ValueWrap>
             </ListItem>
             <ListItem style={{ display: 'block' }}>
               <div style={{ display: 'flex' }}>
-                Email: <ValueWrap>{user?.email}</ValueWrap>
+                {defaultLang ? 'Почта' : 'Email:'}{' '}
+                <ValueWrap>{user?.email}</ValueWrap>
               </div>
               <EditBtn
                 type="button"
@@ -172,17 +179,19 @@ export const AdminUserDetails = () => {
               </EditBtn>
             </ListItem>
             <ListItem>
-              Percentage:{' '}
+              {defaultLang ? 'Процент' : 'Percentage:'}{' '}
               <ValueWrap>{user?.investment?.percentage || 0}%</ValueWrap>
             </ListItem>
             <ListItem>
-              Investment: <ValueWrap>{user?.investment?.total || 0}</ValueWrap>
+              {defaultLang ? 'Инвестиции' : 'Investment:'}{' '}
+              <ValueWrap>{user?.investment?.total || 0}</ValueWrap>
             </ListItem>
             <ListItem>
-              Profit: <ValueWrap>{user?.investment?.profit || 0}</ValueWrap>
+              {defaultLang ? 'Прибыль' : 'Profit:'}{' '}
+              <ValueWrap>{user?.investment?.profit || 0}</ValueWrap>
             </ListItem>
             <ListItem>
-              Registration Date:{' '}
+              {defaultLang ? 'Дата регестрации' : 'Registration Date:'}{' '}
               <ValueWrap>{formattedDate || 'No date'}</ValueWrap>
             </ListItem>
 
@@ -203,7 +212,9 @@ export const AdminUserDetails = () => {
         )}
         {isOpen && (
           <Dialog open={isOpen} onClose={handleClose}>
-            <DialogTitle>Edit user percentage</DialogTitle>
+            <DialogTitle>
+              {defaultLang ? 'Изменить процент' : 'Edit user percentage'}
+            </DialogTitle>
             <DialogContent>
               <TextField
                 autoFocus
@@ -255,7 +266,9 @@ export const AdminUserDetails = () => {
           </ModalForm>
         )}
         <TransactionList>
-          <TitleList>Transactions history</TitleList>
+          <TitleList>
+            {defaultLang ? 'История транзакций' : 'Transactions history'}
+          </TitleList>
           {user &&
             user.transactions.map((transaction, idx) => {
               const { _id, type, amount, approved, createdAt } = transaction;
@@ -269,11 +282,13 @@ export const AdminUserDetails = () => {
                   <p>
                     {approved ? (
                       <>
-                        Approved <AiOutlineCheck size={20} color="#07ff07" />
+                        {defaultLang ? 'Подтверджена' : 'Approved'}
+                        <AiOutlineCheck size={20} color="#07ff07" />
                       </>
                     ) : (
                       <>
-                        Not approved <AiOutlineClose size={20} color="red" />
+                        {defaultLang ? 'Ожидает' : 'Not approved'}{' '}
+                        <AiOutlineClose size={20} color="red" />
                       </>
                     )}
                   </p>

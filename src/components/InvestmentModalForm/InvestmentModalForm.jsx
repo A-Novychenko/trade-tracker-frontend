@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { TextField, Typography } from '@mui/material';
+import { TextField, Typography, Button } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import { ModalForm } from 'components/ModalForm';
 
@@ -92,6 +93,25 @@ export const InvestmentModalForm = () => {
     }
   };
 
+  const handleCopyWallet = () => {
+    navigator.clipboard.writeText(WALLET).then(
+      () => {
+        toast.success(
+          defaultLang
+            ? 'Адрес успешно скопирован!'
+            : 'Wallet address copied successfully!'
+        );
+      },
+      () => {
+        toast.error(
+          defaultLang
+            ? 'Ошибка при копировании адреса'
+            : 'Failed to copy wallet address'
+        );
+      }
+    );
+  };
+
   return (
     <>
       <InvestBtn type="button" onClick={handleOpenModal}>
@@ -126,9 +146,26 @@ export const InvestmentModalForm = () => {
             }}
           />
         </Wrap>
-
-        <Typography sx={{ mb: 4 }}>{WALLET}</Typography>
-
+        <div
+          style={{
+            display: 'flex',
+            alignContent: 'center',
+          }}
+        >
+          <Typography sx={{ mb: 4 }}>{WALLET}</Typography>
+          <Button
+            variant="contained"
+            onClick={handleCopyWallet}
+            sx={{
+              padding: '4px',
+              minWidth: 0,
+              height: '40px',
+              marginLeft: '8px',
+            }}
+          >
+            {defaultLang ? 'Скопировать' : 'Copy'}
+          </Button>
+        </div>
         <Typography>{TEXT}</Typography>
       </ModalForm>
     </>

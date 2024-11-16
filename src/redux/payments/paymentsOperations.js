@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { serverAPI } from '../../utils/serverAPI';
 
+import { toast } from 'react-toastify';
+
 export const fetchPayments = createAsyncThunk(
   'payments/fetchAll',
   async (_, { rejectWithValue }) => {
@@ -10,6 +12,9 @@ export const fetchPayments = createAsyncThunk(
       return data.data;
     } catch (err) {
       if (err.response.status === 401) {
+        toast.error(
+          'Authorization problem. Payments technical support: support@mail.com'
+        );
         return rejectWithValue(
           'Authorization problem. Payments technical support: support@mail.com'
         );
@@ -25,6 +30,7 @@ export const addPayment = createAsyncThunk(
     try {
       console.log('addPayment');
       const { data } = await serverAPI.post('/payments', { name, number });
+      toast.success('Платеж добавлен');
       return data.data;
     } catch (err) {
       if (err.response.status === 401) {
@@ -33,6 +39,9 @@ export const addPayment = createAsyncThunk(
         );
       }
       if (err.response.status === 403) {
+        toast.error(
+          'Authorization problem. Payments technical support: support@mail.com'
+        );
         return rejectWithValue(
           'Authorization problem. Payments technical support: support@mail.com'
         );
@@ -47,9 +56,13 @@ export const deletePayment = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const resp = await serverAPI.delete(`/payments/${id}`);
+      toast.success('Платеж удален');
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
+        toast.error(
+          'Authorization problem. Payments technical support: support@mail.com'
+        );
         return rejectWithValue(
           'Authorization problem. Payments technical support: support@mail.com'
         );
@@ -64,9 +77,13 @@ export const updatePayment = createAsyncThunk(
   async ({ number, name, id }, { rejectWithValue }) => {
     try {
       const resp = await serverAPI.patch(`/payments/${id}`, { number, name });
+      toast.success('Платеж обновлен');
       return resp.data;
     } catch (err) {
       if (err.response.status === 401) {
+        toast.error(
+          'Authorization problem. Payments technical support: support@mail.com'
+        );
         return rejectWithValue(
           'Authorization problem. Payments technical support: support@mail.com'
         );

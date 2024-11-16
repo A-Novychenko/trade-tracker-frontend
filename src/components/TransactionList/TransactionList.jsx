@@ -18,7 +18,7 @@ export const TransactionList = ({ transactions }) => {
               <TableHead>{defaultLang ? 'Колличество' : 'Amount'}</TableHead>
               {/* <TableHead>Created</TableHead> */}
               <TableHead>{defaultLang ? 'Статус' : 'Status'}</TableHead>
-              <TableHead>{defaultLang ? 'Детали' : 'Details'}</TableHead>
+              {/* <TableHead>{defaultLang ? 'Детали' : 'Details'}</TableHead> */}
             </TableRow>
           </thead>
           <tbody>

@@ -23,23 +23,48 @@ export const AdminDashboard = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <BurgerBtn onClick={() => toggleSidebar()}>
+      <BurgerBtn
+        onClick={() => toggleSidebar()}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'fixed',
+          zIndex: 2,
+        }}
+      >
         <RiMenuUnfold3Fill size={24} color="#fff" />
       </BurgerBtn>
       <Sidebar isOpen={isOpen}>
         <CloseBtn type="button" onClick={() => toggleSidebar()}>
           <IoMdClose size={24} />
         </CloseBtn>
-        <CustomLink to="adminpanel" style={{ color: '#fff' }}>
+        <CustomLink
+          to="adminpanel"
+          style={{ color: '#fff' }}
+          onClick={() => toggleSidebar()}
+        >
           {defaultLang ? 'Меню' : 'Dashboard'}
         </CustomLink>
-        <CustomLink to="users" style={{ color: '#fff' }}>
+        <CustomLink
+          to="users"
+          style={{ color: '#fff' }}
+          onClick={() => toggleSidebar()}
+        >
           {defaultLang ? 'Пользователи' : 'Users'}
         </CustomLink>
-        <CustomLink to="transactions" style={{ color: '#fff' }}>
+        <CustomLink
+          to="transactions"
+          style={{ color: '#fff' }}
+          onClick={() => toggleSidebar()}
+        >
           {defaultLang ? 'Транзакции' : 'Transactions'}
         </CustomLink>
-        <CustomLink to="archived-users" style={{ color: '#fff' }}>
+        <CustomLink
+          to="archived-users"
+          style={{ color: '#fff' }}
+          onClick={() => toggleSidebar()}
+        >
           {defaultLang ? 'Архив пользователей' : 'Archived users'}
         </CustomLink>
       </Sidebar>

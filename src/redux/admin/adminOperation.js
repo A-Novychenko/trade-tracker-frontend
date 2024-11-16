@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { serverAPI } from '../../utils/serverAPI';
 
+import { toast } from 'react-toastify';
+
 export const getAllUsers = createAsyncThunk(
   'admin/getAllUsers',
   async (_, { rejectWithValue }) => {
@@ -10,6 +12,7 @@ export const getAllUsers = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -20,10 +23,10 @@ export const getAllTransactions = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await serverAPI.get('/admin/transactions');
-      console.log('all trans', response);
 
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -36,9 +39,10 @@ export const confirmTransaction = createAsyncThunk(
       const response = await serverAPI.patch(`/admin/confirm/${credential}`, {
         transactionId: credential,
       });
-      console.log('resp', response);
+      toast.success('Транзакция подтверджена');
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -52,8 +56,10 @@ export const updatePercentage = createAsyncThunk(
       const response = await serverAPI.patch(`/admin/percentage/${id}`, {
         percentage: percentage,
       });
+      toast.success('Процент обновлен');
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -67,6 +73,7 @@ export const getUserById = createAsyncThunk(
 
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -77,8 +84,10 @@ export const deleteUser = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.delete(`/admin/user/${id}`);
+      toast.success('Пользователь удален');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -91,9 +100,10 @@ export const changeUserEmail = createAsyncThunk(
       const { data } = await serverAPI.patch(`/admin/email/${id}`, {
         email,
       });
-
+      toast.success('Почта изменена');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -106,9 +116,10 @@ export const changeUserPassword = createAsyncThunk(
       const { data } = await serverAPI.patch(`/admin/password/${id}`, {
         password,
       });
-      console.log('data', data);
+      toast.success('Пароль изменен');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -122,6 +133,7 @@ export const getCondition = createAsyncThunk(
 
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -138,6 +150,7 @@ export const addCondition = createAsyncThunk(
       console.log('condition', data);
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -150,9 +163,10 @@ export const updateCondition = createAsyncThunk(
       const { data } = await serverAPI.patch('/content/conditions', {
         text: text,
       });
-      console.log('condition', data);
+      toast.success('Условия обновлены');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -163,9 +177,10 @@ export const deleteCondition = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.delete('/content/conditions');
-      console.log('del', data);
+      toast.success('Условия удалены');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -178,6 +193,7 @@ export const getWallet = createAsyncThunk(
       const { data } = await serverAPI.get('/content/wallet');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -193,6 +209,7 @@ export const addWallet = createAsyncThunk(
       });
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -205,8 +222,10 @@ export const updateWallet = createAsyncThunk(
       const { data } = await serverAPI.patch('/content/wallet', {
         text: text,
       });
+      toast.success('Кошелек обновлен');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -217,8 +236,10 @@ export const deleteWallet = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.delete('/content/wallet');
+      toast.success('Кошелек удален');
       return data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }

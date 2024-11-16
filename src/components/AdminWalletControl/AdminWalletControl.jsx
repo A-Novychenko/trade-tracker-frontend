@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import {
   getWallet,
-  addWallet,
   updateWallet,
   deleteWallet,
 } from '../../redux/admin/adminOperation';
@@ -28,14 +27,12 @@ export const AdminWalletControl = () => {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [actionType, setActionType] = useState('add');
 
   useEffect(() => {
     dispatch(getWallet());
   }, []);
 
-  const toggleIsOpen = type => {
-    setActionType(type);
+  const toggleIsOpen = () => {
     setIsOpen(prev => !prev);
   };
 
@@ -49,11 +46,8 @@ export const AdminWalletControl = () => {
     const formJson = Object.fromEntries(formData.entries());
     const text = formJson.text.trim();
 
-    if (actionType === 'add') {
-      dispatch(addWallet({ text }));
-    } else {
-      dispatch(updateWallet({ text }));
-    }
+    dispatch(updateWallet({ text }));
+
     toggleIsOpen();
   };
 
@@ -76,9 +70,6 @@ export const AdminWalletControl = () => {
         </Overview>
       </TextWrap>
       <BtnWrap>
-        <Btn type="button" onClick={() => toggleIsOpen('add')}>
-          {defaultLang ? 'Добавить кошелек' : 'Add wallet'}
-        </Btn>
         <Btn type="button" onClick={() => toggleIsOpen('edit')}>
           {defaultLang ? 'Изменить  кошелек' : 'Edit wallet'}
         </Btn>
@@ -88,15 +79,7 @@ export const AdminWalletControl = () => {
       </BtnWrap>
       {isOpen && (
         <ModalForm
-          text={
-            actionType === 'add'
-              ? defaultLang
-                ? 'Добавить кошелек'
-                : 'Add wallet'
-              : defaultLang
-              ? 'Изменить кошелек'
-              : 'Edit wallet'
-          }
+          text={defaultLang ? 'Изменить кошелек' : 'Edit wallet'}
           title={
             defaultLang ? 'Управление кошелком' : 'Withdrawal wallet control'
           }
