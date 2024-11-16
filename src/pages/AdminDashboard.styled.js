@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 export const BurgerBtn = styled.button`
-  display: block;
   width: 40px;
   height: 40px;
   background-color: #8502da;
   border: none;
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  position: 'fixed';
+  z-index: 2;
 
   @media screen and (min-width: 768px) {
     display: none;
@@ -17,13 +21,12 @@ export const BurgerBtn = styled.button`
 export const Sidebar = styled.div`
   position: fixed;
   top: 0;
-  left: ${({ isOpen }) =>
-    isOpen ? '0' : '-250px'}; /* Відправляємо меню за межі екрану */
+  left: ${({ isOpen }) => (isOpen ? '0' : '-250px')};
   width: 250px;
   height: 100vh;
   background-color: rgba(11, 19, 67);
   color: white;
-  transition: left 0.3s ease; /* Плавний перехід для виїзду меню */
+  transition: left 0.3s ease;
   padding: 50px 12px;
   display: flex;
   flex-direction: column;

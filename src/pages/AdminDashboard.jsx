@@ -23,16 +23,7 @@ export const AdminDashboard = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <BurgerBtn
-        onClick={() => toggleSidebar()}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'fixed',
-          zIndex: 2,
-        }}
-      >
+      <BurgerBtn onClick={() => toggleSidebar()}>
         <RiMenuUnfold3Fill size={24} color="#fff" />
       </BurgerBtn>
       <Sidebar isOpen={isOpen}>

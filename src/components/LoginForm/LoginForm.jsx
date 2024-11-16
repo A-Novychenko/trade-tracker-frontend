@@ -40,11 +40,11 @@ export const LoginForm = () => {
     //   logIn({
     //     //SLAVA
     //     // email: 'admin@mail.com',
-    //     email: 'novychenkoae@gmail.com',
+    //     // email: 'novychenkoa@gmail.com',
     //     //
     //     //
     //     //SASHA
-    //     // email: 'adm@mail.com',
+    //     email: 'adm@mail.com',
     //     // email: 'nmmassagekiev@gmail.com',
     //     //
     //     //

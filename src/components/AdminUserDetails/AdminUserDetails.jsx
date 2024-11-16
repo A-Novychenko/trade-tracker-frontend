@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { ThreeDots } from 'react-loader-spinner';
+
 import {
   Dialog,
   DialogActions,
@@ -49,7 +51,7 @@ export const AdminUserDetails = () => {
   const { id } = useParams();
 
   const { defaultLang } = useLang();
-  const { isError } = useAdmin();
+  const { isError, isLoading } = useAdmin();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMailModal, setIsOpenMailModal] = useState(false);
@@ -78,7 +80,7 @@ export const AdminUserDetails = () => {
     if (id) {
       getUser(id);
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, percentage]);
 
   const toggleOpenMailModal = () => setIsOpenMailModal(prev => !prev);
 
@@ -90,11 +92,27 @@ export const AdminUserDetails = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+    setPercentage('');
   };
 
   const handleConfirm = async () => {
-    await dispatch(updatePercentage({ id, percentage }));
-    setIsOpen(false);
+    // await dispatch(updatePercentage({ id, percentage }));
+    // setIsOpen(false);
+    try {
+      await dispatch(updatePercentage({ id, percentage }));
+      setUser(prevUser => ({
+        ...prevUser,
+        investment: {
+          ...prevUser.investment,
+          percentage,
+        },
+      }));
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Error updating percentage:', error);
+    } finally {
+      setPercentage('');
+    }
   };
 
   const handleInputChange = event => {
@@ -211,59 +229,151 @@ export const AdminUserDetails = () => {
           </CardWrapper>
         )}
         {isOpen && (
-          <Dialog open={isOpen} onClose={handleClose}>
-            <DialogTitle>
-              {defaultLang ? 'Изменить процент' : 'Edit user percentage'}
-            </DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                label="Enter percentage"
-                type="number"
-                fullWidth
-                variant="outlined"
-                value={percentage}
-                onChange={handleInputChange}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={handleConfirm} color="primary">
-                Confirm
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <>
+            {isLoading && (
+              <div
+                style={{
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  width: '300px',
+                  height: '300px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: 2000,
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="#aa00ff"
+                  ariaLabel="three-dots-loading"
+                  visible={true}
+                />
+              </div>
+            )}
+            <Dialog open={isOpen} onClose={handleClose}>
+              <DialogTitle>
+                {defaultLang ? 'Изменить процент' : 'Edit user percentage'}
+              </DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Enter percentage"
+                  type="number"
+                  fullWidth
+                  variant="outlined"
+                  value={percentage}
+                  onChange={handleInputChange}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleConfirm} color="primary">
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </>
         )}
         {isOpenMailModal && (
-          <ModalForm
-            text={'Enter new user email'}
-            title={'Change user email'}
-            open={isOpenMailModal}
-            handleClose={toggleOpenMailModal}
-            handleSubmit={handleChangeEmailSubmit}
-          >
-            {<ChangeMailInput value={newEmail} onChange={handleChangeEmail} />}
-          </ModalForm>
+          <>
+            {isLoading && (
+              <div
+                style={{
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  width: '300px',
+                  height: '300px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: 2000,
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="#aa00ff"
+                  ariaLabel="three-dots-loading"
+                  visible={true}
+                />
+              </div>
+            )}
+            <ModalForm
+              text={'Enter new user email'}
+              title={'Change user email'}
+              open={isOpenMailModal}
+              handleClose={toggleOpenMailModal}
+              handleSubmit={handleChangeEmailSubmit}
+            >
+              {
+                <ChangeMailInput
+                  value={newEmail}
+                  onChange={handleChangeEmail}
+                />
+              }
+            </ModalForm>
+          </>
         )}
         {isOpenPassModal && (
-          <ModalForm
-            text={
-              defaultLang
-                ? 'Введите новый пароль юзера'
-                : 'Enter new user password'
-            }
-            title={
-              defaultLang ? 'Изменить пароль пользователя' : 'Change user email'
-            }
-            open={isOpenPassModal}
-            handleClose={toggleOpenPassModal}
-            handleSubmit={handleChangePasswordSubmit}
-          >
-            {<ChangeMailInput value={newPass} onChange={handleChangePass} />}
-          </ModalForm>
+          <>
+            {isLoading && (
+              <div
+                style={{
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  width: '300px',
+                  height: '300px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: 2000,
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="#aa00ff"
+                  ariaLabel="three-dots-loading"
+                  visible={true}
+                />
+              </div>
+            )}
+            <ModalForm
+              text={
+                defaultLang
+                  ? 'Введите новый пароль юзера'
+                  : 'Enter new user password'
+              }
+              title={
+                defaultLang
+                  ? 'Изменить пароль пользователя'
+                  : 'Change user email'
+              }
+              open={isOpenPassModal}
+              handleClose={toggleOpenPassModal}
+              handleSubmit={handleChangePasswordSubmit}
+            >
+              {<ChangeMailInput value={newPass} onChange={handleChangePass} />}
+            </ModalForm>
+            {isLoading && <ThreeDots />}
+          </>
         )}
         <TransactionList>
           <TitleList>
