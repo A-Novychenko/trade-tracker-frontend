@@ -1,4 +1,4 @@
-import { useAuth } from '../../hooks';
+import { useAuth, useLang } from '../../hooks';
 
 import { Container, Title } from './CustomerProfile.styled';
 
@@ -6,16 +6,19 @@ export const CustomerProfile = () => {
   const {
     user: { email, id },
   } = useAuth();
+  const { defaultLang } = useLang();
 
   return (
     <Container>
-      <Title>Personal user info</Title>
+      <Title>
+        {defaultLang ? 'Информация о пользователе' : 'Personal user info'}
+      </Title>
       <div>
-        <p>E-mail:</p>
+        <p>{defaultLang ? 'Почта' : 'E-mail:'}</p>
         <p>{email}</p>
       </div>
       <div>
-        <p>Personal ID:</p>
+        <p>ID:</p>
         <p>{id}</p>
       </div>
     </Container>

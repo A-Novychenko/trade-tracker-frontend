@@ -20,6 +20,7 @@ import {
 import { MdOutlineDone } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { confirmTransaction } from '../../redux/admin/adminOperation';
+import { useLang } from 'hooks';
 
 export const AdminTransactionListItem = ({ transaction }) => {
   const { _id: id, owner, type, amount, approved, createdAt } = transaction;
@@ -27,6 +28,8 @@ export const AdminTransactionListItem = ({ transaction }) => {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const { defaultLang } = useLang();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -43,8 +46,6 @@ export const AdminTransactionListItem = ({ transaction }) => {
 
   const date = getFormattedDate(createdAt);
 
-  console.log(createdAt);
-
   return (
     <TableRow>
       {/* <TableItem>{date}</TableItem> */}
@@ -59,7 +60,9 @@ export const AdminTransactionListItem = ({ transaction }) => {
             <MdOutlineDone color="green" size={24} />
           </>
         ) : (
-          <CustomBtn onClick={() => handleOpen()}>Approved now</CustomBtn>
+          <CustomBtn onClick={() => handleOpen()}>
+            {defaultLang ? 'Подтвердить' : 'Approved now'}
+          </CustomBtn>
         )}
       </TableItem>
 
@@ -70,10 +73,14 @@ export const AdminTransactionListItem = ({ transaction }) => {
           aria-labelledby="confirm-dialog-title"
           aria-describedby="confirm-dialog-description"
         >
-          <DialogTitle id="confirm-dialog-title">Confirm approved</DialogTitle>
+          <DialogTitle id="confirm-dialog-title">
+            {defaultLang ? 'Подтвердить' : 'Confirm approved'}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText id="confirm-dialog-description">
-              You sure approved this transaction?
+              {defaultLang
+                ? 'Дествительно подтвердить ?'
+                : 'You sure approved this transaction?'}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

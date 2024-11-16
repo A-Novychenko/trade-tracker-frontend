@@ -115,7 +115,7 @@ const adminSlice = createSlice({
       .addCase(changeUserEmail.fulfilled, (state, { payload }) => {
         const userId = payload.id;
         state.users = state.users.map(user =>
-          user._id === userId ? { ...user, email } : user
+          user._id === userId ? { ...user, email: user.email } : user
         );
         state.isLoading = false;
       })

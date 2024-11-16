@@ -1,8 +1,12 @@
+import { useLang } from 'hooks';
 import { getFormattedDate } from '../../utils/getFormattedDate';
+
 import { TableItem, TableRow, CustomLink } from './AdminUserListItem.styled';
 
 export const AdminUserListItem = ({ user }) => {
   const { name, email, _id: id, investment, createdAt } = user;
+
+  const { defaultLang } = useLang();
 
   const date = getFormattedDate(createdAt);
 
@@ -15,7 +19,9 @@ export const AdminUserListItem = ({ user }) => {
       <TableItem>{date}</TableItem>
       <TableItem>{id}</TableItem>
       <TableItem>
-        <CustomLink to={`/dashboard/users/${id}`}>More info</CustomLink>
+        <CustomLink to={`/dashboard/users/${id}`}>
+          {defaultLang ? 'Опции' : 'More info'}
+        </CustomLink>
       </TableItem>
     </TableRow>
   );

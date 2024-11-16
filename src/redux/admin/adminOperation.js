@@ -20,6 +20,7 @@ export const getAllTransactions = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await serverAPI.get('/admin/transactions');
+      console.log('all trans', response);
 
       return response.data;
     } catch (error) {
@@ -46,6 +47,7 @@ export const confirmTransaction = createAsyncThunk(
 export const updatePercentage = createAsyncThunk(
   'admin/updatePercentage',
   async ({ id, percentage }, { rejectWithValue }) => {
+    console.log('first update', id, percentage);
     try {
       const response = await serverAPI.patch(`/admin/percentage/${id}`, {
         percentage: percentage,

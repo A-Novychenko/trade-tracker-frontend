@@ -1,10 +1,11 @@
 import { TransactionListItem } from 'components/TransactionListItem';
 import { Table, TableHead, TableRow } from './Transaction.styled';
 
-import { useUser } from '../../hooks';
+import { useLang, useUser } from '../../hooks';
 
 export const TransactionList = ({ transactions }) => {
   const { userIsLoading, userIsError } = useUser();
+  const { defaultLang } = useLang();
 
   return (
     <>
@@ -12,12 +13,12 @@ export const TransactionList = ({ transactions }) => {
         <Table>
           <thead>
             <TableRow>
-              <TableHead>Data</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Amount</TableHead>
+              <TableHead>{defaultLang ? 'Дата' : 'Data'}</TableHead>
+              <TableHead>{defaultLang ? 'Тип' : 'Type'}</TableHead>
+              <TableHead>{defaultLang ? 'Колличество' : 'Amount'}</TableHead>
               {/* <TableHead>Created</TableHead> */}
-              <TableHead>Status</TableHead>
-              <TableHead>Details</TableHead>
+              <TableHead>{defaultLang ? 'Статус' : 'Status'}</TableHead>
+              <TableHead>{defaultLang ? 'Детали' : 'Details'}</TableHead>
             </TableRow>
           </thead>
           <tbody>

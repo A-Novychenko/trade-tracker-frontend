@@ -3,10 +3,12 @@ import {
   getUserTransaction,
   addUserTransactionDeposit,
   addUserTransactionWithdraw,
+  getConditions,
 } from './userOperation';
 
 const initialState = {
   transactions: [],
+  conditions: '',
   isLoading: false,
   error: null,
 };
@@ -57,6 +59,20 @@ const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addUserTransactionWithdraw.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getConditions.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getConditions.fulfilled, (state, { payload }) => {
+        console.log('payload', payload);
+        state.conditions = payload.data.text;
+
+        state.isLoading = false;
+      })
+      .addCase(getConditions.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

@@ -114,6 +114,7 @@ export const AdminWalletControl = () => {
             variant="filled"
             sx={{
               '& .MuiInputBase-input': {
+                width: '350px',
                 color: '#fff',
               },
             }}
