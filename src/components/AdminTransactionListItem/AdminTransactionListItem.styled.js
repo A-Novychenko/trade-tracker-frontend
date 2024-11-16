@@ -37,7 +37,7 @@ export const CustomBtn = styled.button`
   display: block;
   background-color: #7a14ff;
   border-radius: 12px;
-  padding: 2px 8px;
+  padding: 8px;
   text-decoration: none;
   font-weight: 700;
   width: 100%;

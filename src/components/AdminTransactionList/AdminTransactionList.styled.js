@@ -21,7 +21,7 @@ export const Table = styled.table`
   border-radius: 8px;
   border-collapse: collapse;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1200px) {
     display: block;
     thead {
       display: none;

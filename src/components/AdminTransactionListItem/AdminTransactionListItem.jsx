@@ -46,10 +46,17 @@ export const AdminTransactionListItem = ({ transaction }) => {
 
   const date = getFormattedDate(createdAt);
 
+  console.log('transaction', transaction);
+
   return (
     <TableRow>
-      {/* <TableItem>{date}</TableItem> */}
-      <TableItem>{owner._id}</TableItem>
+      <TableItem>{date}</TableItem>
+      <TableItem style={{ display: 'flex', flexDirection: 'column' }}>
+        <span style={{ borderBottom: '1px solid #fff', padding: '4px 0px' }}>
+          {owner._id}
+        </span>
+        <span style={{ padding: '4px 0' }}>{owner.email}</span>
+      </TableItem>
       <TableItem>{type}</TableItem>
       <TableItem>{amount}</TableItem>
       <TableItem>{id}</TableItem>
