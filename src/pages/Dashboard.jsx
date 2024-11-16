@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, Typography } from '@mui/material';
+import { Button, Modal, Typography, Box } from '@mui/material';
 
-import { TransitionsModal } from 'components/Modal';
+// import { TransitionsModal } from 'components/Modal';
 
 import {
   addPayment,

@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { toast } from 'react-toastify';
+
 import { serverAPI } from '../../utils/serverAPI';
 import { sendTG } from 'utils/sendTG';
 
@@ -8,10 +10,10 @@ export const getUserTransaction = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await serverAPI.get('/transactions');
-      console.log('resp trans', response);
 
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -28,9 +30,10 @@ export const addUserTransactionDeposit = createAsyncThunk(
       const msg = `<b>Новый ВВОД</b>\n\n<b>Имя пользователя: ${name}</b>\n<b>ID пользователя: ${id}</b>\n<b>Почта: ${email}</b>\n\n<b>Сумма: ${amount}</b>`;
 
       await sendTG(msg);
-
+      toast.success('Транзакция добавлена');
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -48,9 +51,10 @@ export const addUserTransactionWithdraw = createAsyncThunk(
       const msg = `<b>Запрос на ВЫВОД</b>\n\n<b>Имя пользователя: ${name}</b>\n<b>ID пользователя: ${id}</b>\n<b>Почта: ${email}</b>\n\n<b>Сумма: ${amount}</b>\n\n<b>Кошелёк: ${wallet}</b>`;
 
       await sendTG(msg);
-
+      toast.success('Транзакция добавлена');
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -62,8 +66,10 @@ export const userChangePassword = createAsyncThunk(
     try {
       const response = await serverAPI.patch('/users/password', { password });
 
+      toast.success('Пароль изменен');
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -77,6 +83,7 @@ export const getConditions = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       return rejectWithValue(error.message);
     }
   }

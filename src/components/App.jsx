@@ -19,6 +19,9 @@ import { AdminUserDetails } from './AdminUserDetails/AdminUserDetails';
 import { setCompleted, setError } from '@/payments/paymentsSlice';
 import { AdminArchivedUserDetails } from './AdminArchivedUserDetails';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
@@ -143,7 +146,7 @@ export const App = () => {
           </Route>
         </Route>
       </Routes>
-
+      {/* 
       <SnackError
         sx={{ width: '100%' }}
         isOpen={showSnackErr}
@@ -171,6 +174,18 @@ export const App = () => {
           setShowSnackCompleted(false);
           dispatch(setCompleted(null));
         }}
+      /> */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
       />
     </>
   );

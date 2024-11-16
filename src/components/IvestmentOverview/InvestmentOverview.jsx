@@ -24,15 +24,15 @@ export const InvestmentOverview = () => {
       <Container>
         <ItemWrapper>
           <Title>{defaultLang ? 'Инвестиции' : 'Investment'}</Title>
-          <Value>{investment} $</Value>
+          <Value>{investment}$</Value>
         </ItemWrapper>
         <ItemWrapper>
           <Title>{defaultLang ? 'Прибыль' : 'Total profit'}</Title>
-          <Value>{formattedProfit} $</Value>
+          <Value>{formattedProfit}$</Value>
         </ItemWrapper>
         <ItemWrapper>
           <Title>{defaultLang ? 'Общий баланс' : 'Total balance'}</Title>
-          <Value>{formattedTotal} $</Value>
+          <Value>{formattedTotal}$</Value>
         </ItemWrapper>
       </Container>
       <Text>

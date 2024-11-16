@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { serverAPI } from '../../utils/serverAPI';
 
+import { toast } from 'react-toastify';
+
 const setToken = token => {
   if (token) {
     return (serverAPI.defaults.headers.common.authorization = `Bearer ${token}`);
@@ -71,14 +73,16 @@ export const register = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.post('/users/register', credentials);
-
+      toast.success('Регестрация успешна');
       return data.data;
     } catch (err) {
       if (err.response.status === 400) {
+        toast.error('Ошибка регестрации, введите коректную почту');
         return rejectWithValue(
           `Error creating user!  Try a different name or email`
         );
       }
+      toast.error('Ошибка регестрации, пожалуйста попробуйте позже');
       return rejectWithValue(
         `Oops! What's broken, please try again later. Error: " ${err.message} " `
       );
@@ -91,14 +95,16 @@ export const resendVerify = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.post('/users/verify', email);
-
+      toast.success('Проверьте почту и верефецируйтесь');
       return data.data;
     } catch (err) {
       if (err.response.status === 400) {
+        toast.error('Ошибка регестрации, введите коректную почту');
         return rejectWithValue(
           `Error creating user!  Try a different name or email`
         );
       }
+      toast.error('Ошибка регестрации, пожалуйста попробуйте позже');
       return rejectWithValue(
         `Oops! What's broken, please try again later. Error: " ${err.message} " `
       );
@@ -114,14 +120,18 @@ export const logIn = createAsyncThunk(
 
       setToken(data.data.accessToken);
       localStorage.setItem('refreshToken', data.data.refreshToken);
-
+      toast.success('Вход выполнен');
       return data.data;
     } catch (err) {
       if (err.response.status === 400) {
+        toast.error(
+          'Пользователь не найденб введите коректную почту или пароль'
+        );
         return rejectWithValue(
           'User is not found! You may have entered an incorrect email address or password.'
         );
       }
+      toast.error('Ошибка входа, пожалуйста попробуйте позже');
       return rejectWithValue(
         `Oops! What's broken, please try again later. Error: " ${err.message} " `
       );
@@ -136,15 +146,16 @@ export const logOut = createAsyncThunk(
       await serverAPI.get('/users/logout');
 
       setToken();
-
+      toast.success('Выход выполнен');
       return;
     } catch (err) {
       if (err.response.status === 401) {
+        toast.error('Ошибка выхода, свяжитесь с тех поддержкой');
         return rejectWithValue(
           'Something went wrong. Contact technical support: support@mail.com'
         );
       }
-
+      toast.error('Ошибка выхода, пожалуйста попробуйте позже');
       return rejectWithValue(
         `Oops! What's broken, please try again later. Error: " ${err.message} " `
       );
@@ -180,9 +191,10 @@ export const resetPassword = createAsyncThunk(
   async (email, { rejectWithValue }) => {
     try {
       const { data } = await serverAPI.post('/users/reset-password', { email });
-
+      toast.success('Пароль скинут');
       return data.data;
     } catch (err) {
+      toast.error(err.message);
       return rejectWithValue(err.message);
     }
   }
