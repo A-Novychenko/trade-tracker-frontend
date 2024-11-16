@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, Modal, Typography, Box } from '@mui/material';
+// import { Button, Modal, Typography, Box } from '@mui/material';
 
 // import { TransitionsModal } from 'components/Modal';
 
@@ -16,7 +16,7 @@ import { InvestmentOverview } from 'components/IvestmentOverview';
 import { InvestmentConditions } from 'components/InvestmentCondition';
 import { TransactionList } from 'components/TransactionList';
 // import { FeedbackButton } from 'components/FeedbackButton';
-import { DashboardBanner } from 'components/DashbordBanner';
+// import { DashboardBanner } from 'components/DashbordBanner';
 import {
   Container,
   OverviewContainer,
@@ -66,7 +66,7 @@ export default function Dashboard({ handleIsSuchPayment }) {
 
           <UserChangePassForm />
 
-          <DashboardBanner />
+          {/* <DashboardBanner /> */}
         </div>
         <OverviewContainer>
           <InvestmentOverview />
@@ -78,7 +78,7 @@ export default function Dashboard({ handleIsSuchPayment }) {
             <p>{defaultLang ? 'История депозитов' : 'Deposit history'}</p>
             <p>{defaultLang ? 'История выводов' : 'Withdraw history'}</p>
           </TransactionListTitle>
-          <TransactionListWrap style={{ display: 'flex', gap: '12px' }}>
+          <TransactionListWrap>
             <TransactionList transactions={depositTransactions} />
             <TransactionList transactions={withdrawTransactions} />
           </TransactionListWrap>

@@ -6,6 +6,7 @@ import {
   selectUserIsLoading,
   selectUserIsError,
   selectConditions,
+  selectWallet,
 } from '../redux/user/userSelectors.js';
 
 export const useUser = () => {
@@ -15,6 +16,7 @@ export const useUser = () => {
   const withdrawTransactions = useSelector(selectWithdrawTransactions);
   const depositTransactions = useSelector(selectDepositTransactions);
   const conditions = useSelector(selectConditions);
+  const wallet = useSelector(selectWallet);
 
   return {
     userTransactions,
@@ -23,5 +25,6 @@ export const useUser = () => {
     userIsLoading,
     userIsError,
     conditions,
+    wallet,
   };
 };
