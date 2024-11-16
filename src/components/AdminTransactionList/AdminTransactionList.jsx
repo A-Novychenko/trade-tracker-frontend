@@ -12,7 +12,7 @@ export const AdminTransactionList = ({ allTransactions }) => {
     <Table>
       <thead>
         <TableRow>
-          {/* <TableHead>Data</TableHead> */}
+          <TableHead>{defaultLang ? 'Дата' : 'Data'}</TableHead>
           <TableHead>{defaultLang ? 'Владелец' : 'Owner'}</TableHead>
           <TableHead>{defaultLang ? 'Тип' : 'Type'}</TableHead>
           <TableHead>{defaultLang ? 'Сумма' : 'Amount'}</TableHead>

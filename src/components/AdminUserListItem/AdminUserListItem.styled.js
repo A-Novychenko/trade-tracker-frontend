@@ -37,10 +37,10 @@ export const CustomLink = styled(Link)`
   display: block;
   background-color: #7a14ff;
   border-radius: 12px;
-  padding: 2px 8px;
+  padding: 4px 8px;
   text-decoration: none;
   font-weight: 700;
-  width: 100px;
+  width: 100%;
   color: #fff;
 
   &:hover,
