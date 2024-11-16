@@ -7,10 +7,10 @@ export const BurgerBtn = styled.button`
   height: 40px;
   background-color: #8502da;
   border: none;
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center';
-  position: 'fixed';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
   z-index: 2;
 
   @media screen and (min-width: 768px) {
