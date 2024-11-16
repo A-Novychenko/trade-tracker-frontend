@@ -11,12 +11,16 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 
-import { authReducer } from './auth/authSlice';
+import { authReducer, setTokenInState, setIsLoggedIn } from './auth/authSlice';
 
 import { paymentsReducer } from './payments/paymentsSlice';
 import { adminReducer } from './admin/adminSlice';
 import { langReducer } from './lang/langSlice';
 import { userReducer } from './user/userSlice';
+import {
+  setTokenUpdateCallback,
+  setLogoutIsLoggedInCallback,
+} from './auth/authOperations';
 
 const isDev = import.meta.env.VITE_NODE_ENV === 'development';
 
@@ -29,6 +33,14 @@ const langPersistConfig = {
   key: 'lang',
   storage,
 };
+
+setTokenUpdateCallback(newTokens => {
+  store.dispatch(setTokenInState(newTokens));
+});
+
+setLogoutIsLoggedInCallback(() => {
+  store.dispatch(setIsLoggedIn(false));
+});
 
 export const store = configureStore({
   reducer: {

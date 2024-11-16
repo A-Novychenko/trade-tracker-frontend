@@ -39,6 +39,9 @@ export const AdminDashboard = () => {
         <CustomLink to="transactions" style={{ color: '#fff' }}>
           {defaultLang ? 'Транзакции' : 'Transactions'}
         </CustomLink>
+        <CustomLink to="archived-users" style={{ color: '#fff' }}>
+          {defaultLang ? 'Архив пользователей' : 'Archived users'}
+        </CustomLink>
       </Sidebar>
       <div style={{ flex: 1, padding: '20px', width: '100%' }}>
         <Outlet />
