@@ -17,6 +17,7 @@ import { AdminUsersArchived } from 'pages/AdminUsersArchived';
 import { AdminTransaction } from 'pages/AdminTransaction';
 import { AdminUserDetails } from './AdminUserDetails/AdminUserDetails';
 import { setCompleted, setError } from '@/payments/paymentsSlice';
+import { AdminArchivedUserDetails } from './AdminArchivedUserDetails';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -130,6 +131,10 @@ export const App = () => {
                 <Route path="users/:id" element={<AdminUserDetails />} />
                 <Route path="transactions" element={<AdminTransaction />} />
                 <Route path="archived-users" element={<AdminUsersArchived />} />
+                <Route
+                  path="archived-users/:id"
+                  element={<AdminArchivedUserDetails />}
+                />
               </>
             )}
             {!isAdmin && (

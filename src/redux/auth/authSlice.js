@@ -20,6 +20,7 @@ const extraActions = [
 
 const initialState = {
   isLoading: false,
+  token: '',
   user: { name: null, email: null, role: null },
   isLoggedIn: false,
   isRefreshing: false,
@@ -38,6 +39,14 @@ const authSlice = createSlice({
 
     setVerify(state, action) {
       state.verify = action.payload;
+    },
+
+    setTokenInState(state, action) {
+      state.token = action.payload.token;
+    },
+
+    setIsLoggedIn(state, action) {
+      state.isLoggedIn = action.payload;
     },
   },
 
@@ -69,8 +78,8 @@ const authSlice = createSlice({
         state.error = null;
       })
 
-      .addCase(logIn.fulfilled, (state, { payload: { user } }) => {
-        console.log('auth', user);
+      .addCase(logIn.fulfilled, (state, { payload: { user, accessToken } }) => {
+        state.token = accessToken;
         state.user = user;
         state.isLoggedIn = true;
         state.error = null;
@@ -84,10 +93,12 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.token = payload.user.accessToken;
         state.user = payload.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.error = null;
+        state.isLoading = false;
       })
       .addCase(refreshUser.rejected, () => initialState)
 
@@ -108,5 +119,5 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const { setLoggedOut } = authSlice.actions;
-export const { setVerify } = authSlice.actions;
+export const { setVerify, setLoggedOut, setTokenInState, setIsLoggedIn } =
+  authSlice.actions;

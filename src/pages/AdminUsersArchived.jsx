@@ -1,20 +1,15 @@
-import { Table, TableHead, TableRow } from '@mui/material';
+import { Table, TableHead, TableRow } from './AdminUsersArchived.styled';
 
-import { AdminUserListItem } from 'components/AdminUserListItem';
-
-import { useAdmin, useLang } from 'hooks';
-import { useEffect, useState } from 'react';
+import { useLang } from 'hooks';
+import { Fragment, useEffect, useState } from 'react';
 import { setError } from '@/payments/paymentsSlice';
-// import { useDispatch } from 'react-redux';
 import { serverAPI } from 'utils/serverAPI';
+import { CustomLink, TableItem } from './AdminUsersArchived.styled';
 
 export const AdminUsersArchived = () => {
   const { defaultLang } = useLang();
   const [archivedUsers, setArchivedUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  // const dispatch = useDispatch();
-  // const { allUsers, isLoading, isError } = useAdmin();
 
   useEffect(() => {
     const getArchivedUsers = async () => {
@@ -51,8 +46,24 @@ export const AdminUsersArchived = () => {
         <tbody>
           {!isLoading &&
             archivedUsers &&
-            archivedUsers.map((user, idx) => {
-              return <AdminUserListItem key={idx} user={user} />;
+            archivedUsers.map(({ name, email, investment, date, _id }, idx) => {
+              return (
+                <Fragment key={idx}>
+                  <TableRow>
+                    <TableItem>{name}</TableItem>
+                    <TableItem>{email}</TableItem>
+                    <TableItem>{investment?.total || 0}</TableItem>
+                    <TableItem>{investment?.percentage || 0}</TableItem>
+                    <TableItem>{date}</TableItem>
+                    <TableItem>{_id}</TableItem>
+                    <TableItem>
+                      <CustomLink to={`/dashboard/archived-users/${_id}`}>
+                        More info
+                      </CustomLink>
+                    </TableItem>
+                  </TableRow>
+                </Fragment>
+              );
             })}
         </tbody>
       </Table>
