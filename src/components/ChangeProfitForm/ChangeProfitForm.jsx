@@ -32,7 +32,7 @@ export const ChangeProfitForm = ({ currentProfit, id, setUser }) => {
     const newProfit = Number(formJson.profit);
 
     try {
-      if (!newProfit) {
+      if (amount < 0 || amount === null || amount === undefined) {
         throw new Error();
       }
 

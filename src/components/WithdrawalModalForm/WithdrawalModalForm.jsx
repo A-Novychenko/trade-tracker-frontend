@@ -96,6 +96,7 @@ export const WithdrawalModalForm = () => {
         status={status}
         handleClose={handleCloseModal}
         handleSubmit={handleSubmit}
+        sendName={defaultLang ? 'Вывести' : 'Withdrawal'}
       >
         <Wrap>
           <span> {defaultLang ? 'Сумма USDT TRC20' : 'Amount USDT TRC20'}</span>

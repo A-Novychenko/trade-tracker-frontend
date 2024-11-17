@@ -32,13 +32,11 @@ export const ChangeAmountForm = ({ currentAmount, id, setUser }) => {
     const amount = Number(formJson.amount);
 
     try {
-      if (!amount) {
+      if (amount < 0 || amount === null || amount === undefined) {
         throw new Error();
       }
 
       setStatus('pending');
-
-      console.log('amount', amount);
 
       const { data } = await serverAPI.patch(`/admin/investment/${id}`, {
         investment: amount,

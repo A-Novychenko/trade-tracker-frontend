@@ -16,6 +16,7 @@ export const ModalForm = ({
   status,
   handleClose,
   handleSubmit,
+  sendName = 'Отправлено',
 }) => {
   const { defaultLang } = useLang();
 
@@ -94,7 +95,7 @@ export const ModalForm = ({
             }}
             type="submit"
           >
-            {defaultLang ? 'Отправлено' : 'Send'}
+            {sendName}
           </Button>
         </DialogActions>
       </Dialog>
