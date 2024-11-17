@@ -53,9 +53,18 @@ export const addUserTransactionWithdraw = createAsyncThunk(
       await sendTG(msg);
       toast.success('Транзакция добавлена');
       return response.data;
-    } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
+    } catch (e) {
+      console.log('e', e);
+      if (e.status === 409) {
+        toast.warn(
+          'Не достаточно средств для вывода | Not enough funds for withdrawal'
+        );
+        return rejectWithValue(e.message);
+      }
+
+      toast.error(e.message);
+
+      return rejectWithValue(e.message);
     }
   }
 );
