@@ -100,7 +100,7 @@ export const InvestmentModalForm = () => {
   };
 
   const handleCopyWallet = () => {
-    navigator.clipboard.writeText(WALLET).then(
+    navigator.clipboard.writeText(wallet).then(
       () => {
         toast.success(
           defaultLang
