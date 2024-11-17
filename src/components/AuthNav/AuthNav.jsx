@@ -2,8 +2,11 @@ import { NavLink as RouterNavLink } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
+import { useLang } from 'hooks';
 
 export const AuthNav = () => {
+  const { defaultLang } = useLang();
+
   return (
     <Box
       component={'div'}
@@ -15,11 +18,11 @@ export const AuthNav = () => {
       }}
     >
       <Button component={RouterNavLink} variant={'outline'} to="/register">
-        Register
+        {defaultLang ? 'Регистрация' : 'Register'}
       </Button>
 
       <Button component={RouterNavLink} variant={'outline'} to="/login">
-        Log In
+        {defaultLang ? 'Войти' : 'Log In'}
       </Button>
     </Box>
   );
