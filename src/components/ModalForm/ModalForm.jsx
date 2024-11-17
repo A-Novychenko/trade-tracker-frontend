@@ -29,7 +29,7 @@ export const ModalForm = ({
           component: 'form',
           onSubmit: handleSubmit,
           sx: {
-            backgroundColor: '#2e21df',
+            backgroundColor: '#0a206b',
             color: '#fff',
           },
         }}

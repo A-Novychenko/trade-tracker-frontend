@@ -15,8 +15,17 @@ export const Navigation = () => {
         <Button component={RouterNavLink} variant="outline" to="/">
           <CurrencyExchangeIcon sx={{ mr: 2 }} />
 
-          <Typography variant="h6" component="p" sx={{ textTransform: 'none' }}>
-            Trade Tracker
+          <Typography
+            variant="h6"
+            component="p"
+            sx={{
+              textTransform: 'none',
+              fontSize: '18px',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+            }}
+          >
+            msv.trade
           </Typography>
         </Button>
 

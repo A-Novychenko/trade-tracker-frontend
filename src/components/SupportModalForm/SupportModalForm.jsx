@@ -97,6 +97,10 @@ export const SupportModalForm = () => {
           fullWidth
           variant="filled"
           sx={{
+            '& .MuiInputBase-root': {
+              borderColor: '#fff',
+              border: '1px solid #fff',
+            },
             '& .MuiInputBase-input': {
               color: '#fff',
             },
