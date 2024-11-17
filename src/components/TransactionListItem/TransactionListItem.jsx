@@ -24,10 +24,10 @@ export const TransactionListItem = ({ data }) => {
         <TableItem>
           {data.approved
             ? defaultLang
-              ? 'Подтверджена'
+              ? 'Подтверждена'
               : 'approved'
             : defaultLang
-            ? 'Ожидает подтверджения'
+            ? 'Ожидает подтверждения'
             : 'Wait approving'}
         </TableItem>
         {/* <TableItem>
