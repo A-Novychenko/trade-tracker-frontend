@@ -432,7 +432,7 @@ export const AdminUserDetails = () => {
                   <p>
                     {approved ? (
                       <>
-                        {defaultLang ? 'Подтверджена' : 'Approved'}
+                        {defaultLang ? 'Подтверждена' : 'Approved'}
                         <AiOutlineCheck size={20} color="#07ff07" />
                       </>
                     ) : (

@@ -131,6 +131,7 @@ export const InvestmentModalForm = () => {
         status={status}
         handleClose={handleCloseModal}
         handleSubmit={handleSubmit}
+        sendName={defaultLang ? 'Отправлено' : 'Sent'}
       >
         <Wrap>
           <span> {defaultLang ? 'Сумма USDT TRC20' : 'Amount USDT TRC20'}</span>

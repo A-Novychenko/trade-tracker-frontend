@@ -39,7 +39,7 @@ export const confirmTransaction = createAsyncThunk(
       const response = await serverAPI.patch(`/admin/confirm/${credential}`, {
         transactionId: credential,
       });
-      toast.success('Транзакция подтверджена');
+      toast.success('Транзакция подтверждена');
       return response.data;
     } catch (error) {
       toast.error(error.message);
