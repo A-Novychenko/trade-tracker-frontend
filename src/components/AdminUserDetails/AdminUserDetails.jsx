@@ -15,7 +15,6 @@ import {
 
 import {
   changeUserEmail,
-  deleteUser,
   getUserById,
   updatePercentage,
   changeUserPassword,
@@ -37,7 +36,6 @@ import {
   ListItem,
   Image,
   EditBtn,
-  DelBtn,
   TransactionList,
   TransactionItem,
   CardContainer,
@@ -48,6 +46,7 @@ import {
 import { ModalForm } from 'components/ModalForm';
 import { ChangeAmountForm } from 'components/ChangeAmountForm';
 import { ChangeProfitForm } from 'components/ChangeProfitForm';
+import { DeleteUserModalForm } from 'components/DeleteUserModalForm';
 
 export const AdminUserDetails = () => {
   const { id } = useParams();
@@ -124,17 +123,6 @@ export const AdminUserDetails = () => {
     }
 
     setPercentage(value);
-  };
-
-  const handleDelete = async () => {
-    try {
-      await dispatch(deleteUser(id)).unwrap();
-
-      setUser(null);
-    } catch (error) {
-      toast.error('Ошибка удаления');
-      console.error('Error deleting user:', error);
-    }
   };
 
   const handleChangeEmailSubmit = evt => {
@@ -263,9 +251,11 @@ export const AdminUserDetails = () => {
               setUser={setUser}
             />
 
-            <DelBtn type="button" onClick={() => handleDelete()}>
-              {defaultLang ? 'Удалить пользователя' : 'Delete user'}
-            </DelBtn>
+            <DeleteUserModalForm
+              currentUser={user}
+              setUser={setUser}
+              id={user._id}
+            />
           </CardWrapper>
         )}
         {isOpen && (
